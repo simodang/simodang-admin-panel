@@ -1,9 +1,14 @@
-require('dotenv').config();
+require("dotenv").config();
 import axios from 'axios';
 
+const token = "aksesiniuntukmuhambakuyangsetia";
+
 export const api = axios.create({
-    baseURL: process.env.BASE_URL,
+    baseURL: 'http://www.devel-filkomub.site/admin',
     headers:{
-        Authorization: `Bearer ${process.env.TOKEN_URL}`
+        Authorization: `Bearer ${token}`
     }
 });
+module.exports= {
+    api
+}
