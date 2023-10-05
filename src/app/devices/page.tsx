@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { api } from "@/hooks/hooks-api";
+import { Button } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
-export default function DevicePage() {
+export default function DevicePage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -20,12 +21,12 @@ export default function DevicePage() {
     const columns: GridColDef[] = [
         // {field: 'id', headerName: 'ID', width: 130},
         { field: 'name', headerName: 'Name', width: 130 },
-        { field: 'notificationEnabled', type: 'boolean', headerName: 'Notification Enabled', width: 130 },
+        { field: 'notificationEnabled', type: 'boolean', headerName: 'Notification Enabled', width: 150 },
         // {field: 'notificationCount', type: 'boolean', headerName: 'Notification Count', width: 70},
         { field: 'isSaved', type: 'boolean', headerName: 'Saved', width: 130 },
         // {field: 'isChanged', type: 'boolean', headerName: 'Changed', width: 70},
-        { field: 'autoWaterEnabled', type: 'boolean', headerName: 'Auto Water Enabled', width: 130 },
-        { field: 'autoFeedEnabled', type: 'boolean', headerName: 'Auto Feed Enabled', width: 130 },
+        { field: 'autoWaterEnabled', type: 'boolean', headerName: 'Auto Water Enabled', width: 150 },
+        { field: 'autoFeedEnabled', type: 'boolean', headerName: 'Auto Feed Enabled', width: 150 },
         { field: 'tempLow', type: 'number', headerName: 'Temperature Low', width: 130 },
         { field: 'tempHigh', type: 'number', headerName: 'Temperature High', width: 130 },
         { field: 'phLow', type: 'number', headerName: 'pH Low', width: 130 },
@@ -44,17 +45,21 @@ export default function DevicePage() {
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                        },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    checkboxSelection
-                />
-            </div>
+            {/* <Button onClick={props.toggleTheme as any} sx={{backgroundColor:'white'}}>
+                Toggle Theme
+            </Button> */}
+            <DataGrid
+                rows={rows}
+                columns={columns}
+                sx={{backgroundColor: 'white'}}
+                initialState={{
+                    pagination: {
+                        paginationModel: { page: 0, pageSize: 5 },
+                    },
+                }}
+                pageSizeOptions={[5, 10, 15, 20]}
+                checkboxSelection
+            />
+        </div>
     )
 }
