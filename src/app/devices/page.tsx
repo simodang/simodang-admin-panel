@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react';
 import { api } from "@/hooks/hooks-api";
 import { Button } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import UpdateDevicePage from './update/page';
 
 export default function DevicePage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
-
+    const [openModal, setOpenModal] = useState(false);
+    const [deviceUpdate, setDeviceUpdate] = useState({});
     useEffect(() => {
         const fetchData = async () => {
             const response = await api.get('/devices');
@@ -17,6 +19,11 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
     }, []);
 
     console.log(data);
+
+    const handleOpenModal = (params: Object) => {
+        setDeviceUpdate(params);
+        setOpenModal(true);
+    }
 
     const columns: GridColDef[] = [
         // {field: 'id', headerName: 'ID', width: 130},
@@ -39,6 +46,18 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
         { field: 'turbiditiesHigh', type: 'number', headerName: 'Turbidities High', width: 130 },
         { field: 'userId', headerName: 'User ID', width: 130 },
         { field: 'masterId', headerName: 'Master ID', width: 130 },
+        {
+            field: "action",
+            headerName: "Action",
+            sortable: false,
+            renderCell: (params) => {
+                const onClick = () => {
+                    // console.log(params.row);
+                    handleOpenModal(params.row);
+                };
+                return <Button onClick={onClick}>Update</Button>;
+            }
+        },
     ]
 
     const rows: any[] = data;
@@ -51,15 +70,15 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
             <DataGrid
                 rows={rows}
                 columns={columns}
-                sx={{backgroundColor: 'white'}}
+                sx={{ backgroundColor: 'white' }}
                 initialState={{
                     pagination: {
                         paginationModel: { page: 0, pageSize: 5 },
                     },
                 }}
                 pageSizeOptions={[5, 10, 15, 20]}
-                checkboxSelection
             />
+            <UpdateDevicePage openModal={openModal} setOpenModal={setOpenModal} device={deviceUpdate}/>
         </div>
     )
 }
