@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Modal, Box, Input, FormControl, FormLabel, Switch, Select, Stack } from '@mui/material';
+import { Modal, Box, Input, FormControl, FormLabel, Switch, Select, MenuItem } from '@mui/material';
 import FormComponent from '@/components/forms/FormComponent';
 import { Field } from 'formik';
 import { api } from '@/hooks/hooks-api';
@@ -22,6 +22,18 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
     const [users, setUsers] = useState([]);
     const [masters, setMasters] = useState([]);
     const editableVariable = device;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await api.get('/users').then((response) => {
+                setUsers(response.data);
+            }).catch(err => console.log(err));
+            await api.get('/masters').then((response) => {
+                setMasters(response.data);
+            }).catch(err => console.log(err));
+        }
+        fetchData();
+    },[]);
 
     const onSubmit = async (values:any) => {
         await api({
@@ -68,64 +80,57 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{margin: '10px'}}>
                             <FormLabel>Notification Enabled</FormLabel>
-                            <Switch {...field} placeholder="Notification Enabled" onChange={(event) => {
-                                console.log(field);
+                            <Switch {...field} defaultChecked={device.notificationEnabled === 1} onChange={(event: any) => {
                                 if (event.target.checked === true) {
-                                    field.value = 1;
+                                    device.notificationEnabled = 1;
                                 } else {
-                                    field.value = 0;
+                                    event.target.checked = false;
+                                    device.notificationEnabled = 0;
                                 }
-                            }} />
+                                // console.log(device.notificationEnabled);
+                            }} value={device.notificationEnabled}/>
                         </FormControl>
                     )}
                 </Field>
-                {/* <Field name="notificationCount">
-                    {({ field, form }: { field: any, form: any }) => (
-                        <FormControl>
-                            <FormLabel>Notification Count</FormLabel>
-                            <Input {...field} placeholder="Notification Count" />
-                        </FormControl>
-                    )}
-                </Field> */}
                 <Field name="isSaved">
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{margin: '10px'}}>
                             <FormLabel>Saved</FormLabel>
-                            <Switch {...field} onChange={(event) => {
+                            <Switch {...field} defaultChecked={device.isSaved === 1} onChange={(event: any) => {
                                 if (event.target.checked === true) {
-                                    field.value = 1;
+                                    device.isSaved = 1;
                                 } else {
-                                    field.value = 0;
+                                    device.isSaved = 0;
                                 }
-                            }} />
+                            }} value={device.isSaved}/>
                         </FormControl>
                     )}
                 </Field>
-                {/* <Field name="isChanged">
-                    {({ field, form }: { field: any, form: any }) => (
-                        <FormControl>
-                            <FormLabel>Changed</FormLabel>
-                            <Switch {...field} onChange={(event) => {
-                                if (event.target.checked === true) {
-                                    field.value = 1;
-                                } else {
-                                    field.value= 0;
-                                }
-                            }} />
-                        </FormControl>
-                    )}
-                </Field> */}
                 <Field name="autoWaterEnabled">
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{margin: '10px'}}>
                             <FormLabel>Auto Water</FormLabel>
-                            <Switch {...field} onChange={(event) => {
+                            <Switch {...field} defaultChecked={device.autoWaterEnabled === 1} onChange={(event : any) => {
                                 if (event.target.checked === true) {
-                                    field.value = 1;
+                                    device.autoWaterEnabled = 1;
                                 } else {
-                                    field.value = 0;
+                                    device.autoWaterEnabled = 0;
                                 }
-                            }} />
+                            }} value={device.autoWaterEnabled}/>
+                        </FormControl>
+                    )}
+                </Field>
+                <Field name="autoFeedEnabled">
+                    {({ field, form }: { field: any, form: any }) => (
+                        <FormControl sx={{margin: '10px'}}>
+                            <FormLabel>Auto Feed</FormLabel>
+                            <Switch {...field} defaultChecked={device.autoFeedEnabled === 1} onChange={(event : any) => {
+                                if (event.target.checked === true) {
+                                    device.autoFeedEnabled = 1;
+                                } else {
+                                    device.autoFeedEnabled = 0;
+                                }
+                            }} value={device.autoFeedEnabled}/>
                         </FormControl>
                     )}
                 </Field>
@@ -217,38 +222,38 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                         </FormControl>
                     )}
                 </Field>
-                {/* <Field name="userId">
+                <Field name="userId">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl>
+                        <FormControl sx={{margin: '10px'}}>
                             <FormLabel>User</FormLabel>
-                            <Stack {...field} spacing={3} onChange={selectItemUser}>
+                            <Select {...field} spacing={3}>
                                 {
                                     users.map((user: any) => {
                                         return (
-                                            <Select value={user.id}>{user.name}</Select>
+                                            <MenuItem value={user.id}>{user.name}</MenuItem>
                                         )
                                     })
                                 }
-                            </Stack>
+                            </Select>
                         </FormControl>
                     )}
                 </Field>
                 <Field name="masterId">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl>
+                        <FormControl sx={{margin: '10px'}}>
                             <FormLabel>Master</FormLabel>
-                            <Stack {...field} spacing={3} onChange={selectItemMaster}>
+                            <Select {...field} spacing={3}>
                                 {
                                     masters.map((master: any) => {
                                         return (
-                                            <Select value={master.id}>{master.name}</Select>
+                                            <MenuItem value={master.id}>{master.name}</MenuItem>
                                         )
                                     })
                                 }
-                            </Stack>
+                            </Select>
                         </FormControl>
                     )}
-                </Field> */}
+                </Field>
             </div>
         )
     }
