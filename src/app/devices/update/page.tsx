@@ -45,26 +45,6 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
         }).catch(err => console.log(err));
     }
 
-    const selectItemUser = () => {
-        useEffect(() => {
-            const fetchData = async () => {
-                const response = await api.get('/users');
-                setUsers(response.data);
-            }
-            fetchData();
-        }, []);
-    }
-
-    const selectItemMaster = () => {
-        useEffect(() => {
-            const fetchData = async () => {
-                const response = await api.get('/masters');
-                setMasters(response.data);
-            }
-            fetchData();
-        }, []);
-    }
-
     const formComponent = () => {
         return(
             <div>

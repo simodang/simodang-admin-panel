@@ -5,10 +5,12 @@ import { api } from "@/hooks/hooks-api";
 import { Button } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import UpdateDevicePage from './update/page';
+import AddDevicePage from './add/page';
 
 export default function DevicePage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
-    const [openModal, setOpenModal] = useState(false);
+    const [openModalAdd, setOpenModalAdd] = useState(false);
+    const [openModalUpdate, setOpenModalUpdate] = useState(false);
     const [deviceUpdate, setDeviceUpdate] = useState({});
     useEffect(() => {
         const fetchData = async () => {
@@ -22,7 +24,7 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
 
     const handleOpenModal = (params: Object) => {
         setDeviceUpdate(params);
-        setOpenModal(true);
+        setOpenModalUpdate(true);
     }
 
     const columns: GridColDef[] = [
@@ -55,15 +57,19 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
                 return <Button onClick={onClick}>Update</Button>;
             }
         },
-    ]
+    ];
+
+    const addDevice = () => {
+        setOpenModalAdd(true);
+    };
 
     const rows: any[] = data;
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            {/* <Button onClick={props.toggleTheme as any} sx={{backgroundColor:'white'}}>
-                Toggle Theme
-            </Button> */}
+            <Button onClick={addDevice} sx={{backgroundColor:'white', margin: '10px'}}>
+                Add Device
+            </Button>
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -75,7 +81,8 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
                 }}
                 pageSizeOptions={[5, 10, 15, 20]}
             />
-            <UpdateDevicePage openModal={openModal} setOpenModal={setOpenModal} device={deviceUpdate}/>
+            <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} device={deviceUpdate}/>
+            <AddDevicePage openModal={openModalAdd} setOpenModal={setOpenModalAdd}/>
         </div>
     )
 }
