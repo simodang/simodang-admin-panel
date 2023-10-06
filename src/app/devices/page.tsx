@@ -3,15 +3,18 @@
 import { useState, useEffect } from 'react';
 import { api } from "@/hooks/hooks-api";
 import { Button } from '@mui/material';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import UpdateDevicePage from './update/page';
 import AddDevicePage from './add/page';
+import MetricDevicePage from './detail/page';
 
 export default function DevicePage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
     const [openModalAdd, setOpenModalAdd] = useState(false);
     const [openModalUpdate, setOpenModalUpdate] = useState(false);
+    const [openModalDetail, setOpenModalDetail] = useState(false);
     const [deviceUpdate, setDeviceUpdate] = useState({});
+    const [deviceDetail, setDeviceDetail] = useState('');
     useEffect(() => {
         const fetchData = async () => {
             const response = await api.get('/devices');
@@ -22,9 +25,13 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
 
     console.log(data);
 
-    const handleOpenModal = (params: Object) => {
+    const handleOpenModalUpdate = (params: Object) => {
         setDeviceUpdate(params);
         setOpenModalUpdate(true);
+    }
+    const handleOpenModalDetail = (params: any) => {
+        setDeviceDetail(params.id);
+        setOpenModalDetail(true);
     }
 
     const columns: GridColDef[] = [
@@ -46,15 +53,27 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
         { field: 'turbiditiesLow', type: 'number', headerName: 'Turbidities Low', width: 130 },
         { field: 'turbiditiesHigh', type: 'number', headerName: 'Turbidities High', width: 130 },
         {
-            field: "action",
-            headerName: "Action",
+            field: "update",
+            headerName: "Update",
             sortable: false,
             renderCell: (params) => {
                 const onClick = () => {
                     // console.log(params.row);
-                    handleOpenModal(params.row);
+                    handleOpenModalUpdate(params.row);
                 };
                 return <Button onClick={onClick}>Update</Button>;
+            }
+        },
+        {
+            field: "detail",
+            headerName: "Detail",
+            sortable: false,
+            renderCell: (params) => {
+                const onClick = () => {
+                    // console.log(params.row);
+                    handleOpenModalDetail(params.row);
+                };
+                return <Button onClick={onClick}>Detail</Button>;
             }
         },
     ];
@@ -83,6 +102,7 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
             />
             <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} device={deviceUpdate}/>
             <AddDevicePage openModal={openModalAdd} setOpenModal={setOpenModalAdd}/>
+            <MetricDevicePage openModal={openModalDetail} setOpenModal={setOpenModalDetail} deviceId={deviceDetail}/>
         </div>
     )
 }
