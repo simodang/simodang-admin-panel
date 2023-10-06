@@ -26,12 +26,11 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
     }
 
     const columns: GridColDef[] = [
-        // {field: 'id', headerName: 'ID', width: 130},
+        { field: 'userId', headerName: 'User ID', width: 130 },
+        { field: 'masterId', headerName: 'Master ID', width: 130 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'notificationEnabled', type: 'boolean', headerName: 'Notification Enabled', width: 150 },
-        // {field: 'notificationCount', type: 'boolean', headerName: 'Notification Count', width: 70},
         { field: 'isSaved', type: 'boolean', headerName: 'Saved', width: 130 },
-        // {field: 'isChanged', type: 'boolean', headerName: 'Changed', width: 70},
         { field: 'autoWaterEnabled', type: 'boolean', headerName: 'Auto Water Enabled', width: 150 },
         { field: 'autoFeedEnabled', type: 'boolean', headerName: 'Auto Feed Enabled', width: 150 },
         { field: 'tempLow', type: 'number', headerName: 'Temperature Low', width: 130 },
@@ -44,8 +43,6 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
         { field: 'tdsHigh', type: 'number', headerName: 'TDS High', width: 130 },
         { field: 'turbiditiesLow', type: 'number', headerName: 'Turbidities Low', width: 130 },
         { field: 'turbiditiesHigh', type: 'number', headerName: 'Turbidities High', width: 130 },
-        { field: 'userId', headerName: 'User ID', width: 130 },
-        { field: 'masterId', headerName: 'Master ID', width: 130 },
         {
             field: "action",
             headerName: "Action",
