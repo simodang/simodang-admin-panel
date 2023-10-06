@@ -44,7 +44,7 @@ export default function FormComponent(props: any) {
                     {(props) => (
                         <Form>
                             <FormComponent />
-                            <Button type='submit'>Update</Button>
+                            <Button type='submit'>Submit</Button>
                         </Form>
                     )}
                 </Formik>
