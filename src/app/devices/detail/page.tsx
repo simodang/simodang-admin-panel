@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { api } from '@/hooks/hooks-api';
-import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
+import moment from 'moment-timezone';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -60,7 +60,7 @@ export default function MetricDevicePage({ deviceId, openModal, setOpenModal }: 
             >
                 <Box sx={style}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePicker sx={{ margin: '10px' }} onChange={(event: any) => { console.log(zonedTimeToUtc(new Date(), "Asia/Bangkok").toISOString().toString())}} />
+                        <DateTimePicker sx={{ margin: '10px' }} onChange={(event: any) => { setDate(moment.tz(event.$d, 'Asia/Bangkok').utc(true).format())}} />
                     </LocalizationProvider>
                     <DataGrid
                         rows={rows}
