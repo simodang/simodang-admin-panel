@@ -8,7 +8,6 @@ import { api } from '@/hooks/hooks-api';
 export default function AddMasterPage({openModal, setOpenModal}: {openModal: boolean, setOpenModal:Function}){
 
     const [users, setUsers] = useState([]);
-    const [masters, setMasters] = useState([]);
     const editableVariable = {
         id: '',
         name: '',
@@ -73,7 +72,7 @@ export default function AddMasterPage({openModal, setOpenModal}: {openModal: boo
                 <Field name="simNumber">
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{margin: '10px'}}>
-                            <FormLabel>Name</FormLabel>
+                            <FormLabel>Sim Number</FormLabel>
                             <Input {...field} placeholder="Sim Number" />
                         </FormControl>
                     )}
