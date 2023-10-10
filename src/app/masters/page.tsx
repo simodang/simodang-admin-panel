@@ -13,7 +13,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
     const [openModalAdd, setOpenModalAdd] = useState(false);
     const [openModalUpdate, setOpenModalUpdate] = useState(false);
     const [openModalDetail, setOpenModalDetail] = useState(false);
-    const [deviceUpdate, setDeviceUpdate] = useState({});
+    const [masterUpdate, setMasterUpdate] = useState({});
     const [deviceDetail, setDeviceDetail] = useState('');
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +26,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
     console.log(data);
 
     const handleOpenModalUpdate = (params: Object) => {
-        setDeviceUpdate(params);
+        setMasterUpdate(params);
         setOpenModalUpdate(true);
     }
     const handleOpenModalDetail = (params: any) => {
@@ -86,7 +86,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
                 }}
                 pageSizeOptions={[5, 10, 15, 20]}
             />
-            <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} device={deviceUpdate}/>
+            <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} master={masterUpdate}/>
             <AddDevicePage openModal={openModalAdd} setOpenModal={setOpenModalAdd}/>
             <MetricDevicePage openModal={openModalDetail} setOpenModal={setOpenModalDetail} deviceId={deviceDetail}/>
         </div>
