@@ -1,16 +1,15 @@
-// require('dotenv').config();
-// import { initializeApp, getApps } from 'Firebase/app';
-// import { getAuth } from 'Firebase/auth';
+require('dotenv').config();
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
-// const firebaseConfig = {
-//     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-//     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-//     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
-// };
+const firebaseConfig = {
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PROJECT_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PROJECT_APP_ID,
+};
 
-// if(!getApps().length){
-//     initializeApp(firebaseConfig);
-// }
-
-// export const auth = getAuth();
-// export default firebaseConfig;
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);

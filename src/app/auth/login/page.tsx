@@ -1,73 +1,54 @@
 'use client';
+// import { UserAuth } from './AuthContext';
 import { Button } from '@mui/material';
-// import { login, logout } from './AuthContext';
-import { GoogleAuthProvider, signInWithPopup, getAuth, signOut, inMemoryPersistence, setPersistence, signInWithRedirect } from 'Firebase/auth';
-// import { auth } from './config';
-require('dotenv').config();
-
-import { initializeApp, getApps } from 'Firebase/app';
-import { useState } from 'react';
-// import { } from 'Firebase/auth';
-
-const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PROJECT_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PROJECT_APP_ID,
-};
+import { useContext, createContext, useState, useEffect } from 'react';
+import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, Auth, getAuth, inMemoryPersistence } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './config';
 
 export default function LoginPage() {
+    const [user, setUser] = useAuthState(auth);
 
-    const [token, setToken] = useState <String | undefined | null>();
-
-    if (!getApps().length) {
-        initializeApp(firebaseConfig);
+    const googleSignIn = () => {
+        auth.setPersistence(inMemoryPersistence).then(async () => {
+            console.log("google signin");
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider);
+        });
     }
-    
-    const auth = getAuth();
-    
-    const provider = new GoogleAuthProvider();
-    
-    const login = async () => {
+
+    const logOut = async () => {
+        await signOut(auth);
         console.log(auth);
-        await setPersistence(auth, inMemoryPersistence);
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                let credential: any = null;
-                if(token === null || token === undefined){
-                    credential = GoogleAuthProvider.credentialFromResult(result);
-                    setToken(credential?.accessToken);
-                }
-                // const token = credential?.accessToken;
-                const user = result.user;
-                setToken(token);
-                console.log(result);
-                console.log({ credential, token, user });
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                console.log({ errorCode, errorMessage, email, credential });
-            });
     }
-    
-    const logout = async () => {
-        const currentUser = auth.currentUser;
-        auth.signOut().then(() => {
-            console.log('Sudah logout');
-            setToken(null);
-            console.log(token);
-        })
+    const handleSignIn = () => {
+        try {
+            googleSignIn();
+        } catch (err) {
+            console.log(err);
+        }
     }
-    
+
+    const handleSignOut = () => {
+        try {
+            logOut();
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => { console.log(user) }, [user]);
 
     return (
         <div>
-            <Button onClick={login}>Login</Button>
-            <Button onClick={logout}>Logout</Button>
+            {
+                !user ? (
+                    <Button onClick={handleSignIn}>Login</Button>
+                ) : (
+                    <Button onClick={handleSignOut}>Logout</Button>
+                )
+            }
         </div>
     )
+
 }
