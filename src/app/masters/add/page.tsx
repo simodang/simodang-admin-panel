@@ -13,7 +13,7 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
         id: '',
         name: '',
         userId: '',
-        masterId: '',
+        simNumber: '',
     };
 
     useEffect(() => {
@@ -21,16 +21,13 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
             await api.get('/users').then((response) => {
                 setUsers(response.data);
             }).catch(err => console.log(err));
-            await api.get('/masters').then((response) => {
-                setMasters(response.data);
-            }).catch(err => console.log(err));
         }
         fetchData();
     },[]);
 
     const onSubmit = async (values:any) => {
         await api({
-            url:`/devices`,
+            url:`/masters`,
             method: 'post',
             data: values
         }).then((response) => {
@@ -73,19 +70,11 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
                         </FormControl>
                     )}
                 </Field>
-                <Field name="masterId">
+                <Field name="simNumber">
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{margin: '10px'}}>
-                            <FormLabel>Master</FormLabel>
-                            <Select {...field} spacing={3}>
-                                {
-                                    masters.map((master: any) => {
-                                        return (
-                                            <MenuItem value={master.id}>{master.name}</MenuItem>
-                                        )
-                                    })
-                                }
-                            </Select>
+                            <FormLabel>Name</FormLabel>
+                            <Input {...field} placeholder="Sim Number" />
                         </FormControl>
                     )}
                 </Field>

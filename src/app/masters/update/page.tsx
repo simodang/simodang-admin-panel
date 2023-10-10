@@ -20,7 +20,6 @@ const style = {
 
 export default function UpdateDevicePage({ openModal, setOpenModal, master }: { openModal: boolean, setOpenModal: Function, master:any }) {
     const [users, setUsers] = useState([]);
-    // const [masters, setMasters] = useState([]);
     const editableVariable = master;
 
     useEffect(() => {
@@ -28,9 +27,6 @@ export default function UpdateDevicePage({ openModal, setOpenModal, master }: { 
             await api.get('/users').then((response) => {
                 setUsers(response.data);
             }).catch(err => console.log(err));
-            // await api.get('/masters').then((response) => {
-            //     setMasters(response.data);
-            // }).catch(err => console.log(err));
         }
         fetchData();
     },[]);

@@ -64,7 +64,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
         },
     ];
 
-    const addDevice = () => {
+    const addMaster = () => {
         setOpenModalAdd(true);
     };
 
@@ -72,7 +72,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <Button onClick={addDevice} sx={{backgroundColor:'white', margin: '10px'}}>
+            <Button onClick={addMaster} sx={{backgroundColor:'white', margin: '10px'}}>
                 Add Master
             </Button>
             <DataGrid
