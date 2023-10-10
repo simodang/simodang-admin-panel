@@ -4,9 +4,8 @@ import { useState, useEffect } from 'react';
 import { api } from "@/hooks/hooks-api";
 import { Button } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import UpdateDevicePage from './update/page';
-import AddDevicePage from './add/page';
-import MetricDevicePage from './detail/page';
+import UpdateMasterPage from './update/page';
+import AddMasterPage from './add/page';
 
 export default function MasterPage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -86,9 +85,8 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
                 }}
                 pageSizeOptions={[5, 10, 15, 20]}
             />
-            <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} master={masterUpdate}/>
-            <AddDevicePage openModal={openModalAdd} setOpenModal={setOpenModalAdd}/>
-            <MetricDevicePage openModal={openModalDetail} setOpenModal={setOpenModalDetail} deviceId={deviceDetail}/>
+            <UpdateMasterPage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} master={masterUpdate}/>
+            <AddMasterPage openModal={openModalAdd} setOpenModal={setOpenModalAdd}/>
         </div>
     )
 }

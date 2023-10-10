@@ -18,7 +18,7 @@ const style = {
     color:'black'
   };
 
-export default function UpdateDevicePage({ openModal, setOpenModal, master }: { openModal: boolean, setOpenModal: Function, master:any }) {
+export default function UpdateMasterPage({ openModal, setOpenModal, master }: { openModal: boolean, setOpenModal: Function, master:any }) {
     const [users, setUsers] = useState([]);
     const editableVariable = master;
 
