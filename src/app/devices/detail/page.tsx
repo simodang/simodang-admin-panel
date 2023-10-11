@@ -60,7 +60,7 @@ export default function MetricDevicePage({ deviceId, openModal, setOpenModal }: 
             >
                 <Box sx={style}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePicker sx={{ margin: '10px' }} onChange={(event: any) => { setDate(moment.tz(event.$d, 'Asia/Bangkok').utc(true).format())}} />
+                        <DateTimePicker sx={{ margin: '10px' }} onChange={(event: any) => { setDate(moment.utc(event.$d, 'Asia/Bangkok').format())}} />
                     </LocalizationProvider>
                     <DataGrid
                         rows={rows}

@@ -31,7 +31,8 @@ export default function FormComponent(props: any) {
     }
 
     return (
-        <Modal
+        <div>
+            <Modal
             open={openModal}
             onClose={handleClose}
         >
@@ -50,6 +51,7 @@ export default function FormComponent(props: any) {
                 </Formik>
             </Box>
         </Modal>
+        </div>
     )
 }
 

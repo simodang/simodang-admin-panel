@@ -210,7 +210,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                                 {
                                     users.map((user: any) => {
                                         return (
-                                            <MenuItem value={user.id}>{user.name}</MenuItem>
+                                            <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
                                         )
                                     })
                                 }
@@ -226,7 +226,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                                 {
                                     masters.map((master: any) => {
                                         return (
-                                            <MenuItem value={master.id}>{master.name}</MenuItem>
+                                            <MenuItem key={master.id} value={master.id}>{master.name}</MenuItem>
                                         )
                                     })
                                 }
