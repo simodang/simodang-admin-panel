@@ -7,16 +7,37 @@ import {
     List,
     Divider,
     ListItem,
+    ListItemButton
 } from '@mui/material';
+import { items } from './config';
 
 type Anchor = 'left';
 
-export default function SideNav(){
-    const [state, setState] = useState ({left: false});
-
+export default function SideNav({openNav, setOpenNav}: {openNav:boolean, setOpenNav:Function}){
     const list = (anchor: Anchor) => (
         <Box>
-            
+            <List>
+                { items.map((item) => {
+                    return(
+                        <ListItem>
+                            <ListItemButton href={item.path}>
+                                {item.title}
+                            </ListItemButton>
+                        </ListItem>
+                    )
+                }) }
+            </List>
         </Box>
+    )
+    return (
+        <div>
+            <Drawer
+                anchor='left'
+                open={openNav}
+                onClose={() => setOpenNav(false)}
+            >
+                {list('left')}
+            </Drawer>
+        </div>
     )
 }

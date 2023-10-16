@@ -14,14 +14,12 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import SideNav from './SideNav';
 
-export default function TopNav({openNav, setOpenNav} : {openNav:Boolean, setOpenNav:Function}) {
+export default function TopNav({openNav, setOpenNav} : {openNav:boolean, setOpenNav:Function}) {
     const [auth, setAuth] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    // const handleChange = () => {
-    //     setAuth(true);
-    // }
     const handleMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     }
@@ -38,6 +36,7 @@ export default function TopNav({openNav, setOpenNav} : {openNav:Boolean, setOpen
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
+                        onClick={() => {setOpenNav(true)}}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -84,6 +83,7 @@ export default function TopNav({openNav, setOpenNav} : {openNav:Boolean, setOpen
                     }
                 </Toolbar>
             </AppBar>
+            <SideNav openNav={openNav} setOpenNav={setOpenNav} />
         </Box>
     )
 }
