@@ -35,6 +35,7 @@ export default function SideNav({openNav, setOpenNav}: {openNav:boolean, setOpen
                 anchor='left'
                 open={openNav}
                 onClose={() => setOpenNav(false)}
+                sx={{display:'flex', padding:'60px'}}
             >
                 {list('left')}
             </Drawer>

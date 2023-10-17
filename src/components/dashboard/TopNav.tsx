@@ -16,7 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SideNav from './SideNav';
 
-export default function TopNav({openNav, setOpenNav} : {openNav:boolean, setOpenNav:Function}) {
+export default function TopNav({ openNav, setOpenNav }: { openNav: boolean, setOpenNav: Function }) {
     const [auth, setAuth] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -27,7 +27,7 @@ export default function TopNav({openNav, setOpenNav} : {openNav:boolean, setOpen
         setAnchorEl(null);
     }
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, display: 'flex' }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -36,15 +36,15 @@ export default function TopNav({openNav, setOpenNav} : {openNav:boolean, setOpen
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
-                        onClick={() => {setOpenNav(true)}}
+                        onClick={() => { setOpenNav(true) }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Simodang Admin
                     </Typography>
                     {
-                        auth===false ? (
+                        auth === false ? (
                             <Button
                                 size='large'
                                 onClick={() => setAuth(true)}
@@ -66,12 +66,12 @@ export default function TopNav({openNav, setOpenNav} : {openNav:boolean, setOpen
                                     anchorOrigin={{
                                         vertical: 'top',
                                         horizontal: 'right',
-                                      }}
-                                      keepMounted
-                                      transformOrigin={{
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
                                         vertical: 'top',
                                         horizontal: 'right',
-                                      }}
+                                    }}
                                     open={Boolean(anchorEl)}
                                     onClose={handleClose}
                                 >
