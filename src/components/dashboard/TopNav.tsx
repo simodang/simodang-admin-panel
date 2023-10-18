@@ -15,10 +15,13 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SideNav from './SideNav';
+import { useRouter } from 'next/navigation';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/app/auth/login/config';
 
 export default function TopNav({ openNav, setOpenNav }: { openNav: boolean, setOpenNav: Function }) {
-    const [auth, setAuth] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const router = useRouter();
 
     const handleMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -43,44 +46,38 @@ export default function TopNav({ openNav, setOpenNav }: { openNav: boolean, setO
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Simodang Admin
                     </Typography>
-                    {
-                        auth === false ? (
-                            <Button
-                                size='large'
-                                onClick={() => setAuth(true)}
-                                color='inherit'
-                            >Login</Button>
-                        ) : (
-                            <div>
-                                <IconButton
-                                    size="large"
-                                    aria-label='account of current user'
-                                    onClick={handleMenu}
-                                    color='inherit'
-                                >
-                                    <AccountCircle />
-                                </IconButton>
-                                <Menu
-                                    id='menu-appbar'
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleClose}
-                                >
-                                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={() => setAuth(false)}>Logout</MenuItem>
-                                </Menu>
-                            </div>
-                        )
-                    }
+                    <div>
+                        <IconButton
+                            size="large"
+                            aria-label='account of current user'
+                            onClick={handleMenu}
+                            color='inherit'
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        <Menu
+                            id='menu-appbar'
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <MenuItem onClick={() => {
+                                signOut(auth);
+                                localStorage['token'] = null;
+                                router.push('/auth/login');
+                            }}>Logout</MenuItem>
+                        </Menu>
+                    </div>
                 </Toolbar>
             </AppBar>
             <SideNav openNav={openNav} setOpenNav={setOpenNav} />
