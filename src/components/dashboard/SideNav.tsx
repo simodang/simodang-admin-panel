@@ -1,69 +1,44 @@
-import NextLink from 'next/link';
-import { usePathname } from 'next/navigation';
-import PropTypes from 'prop-types';
-import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon';
-import ChevronUpDownIcon from '@heroicons/react/24/solid/ChevronUpDownIcon';
+'use client';
+import { useState } from 'react';
 import {
     Box,
-    Button,
-    Divider,
     Drawer,
-    Stack,
-    SvgIcon,
-    Typography,
-    useMediaQuery
+    Button,
+    List,
+    Divider,
+    ListItem,
+    ListItemButton
 } from '@mui/material';
 import { items } from './config';
-import { SideNavItem } from './SideNavItem';
-// import { Scrollbar } from '../scrollbar/scrollbar';
 
-export const SideNav = (props: any) => {
-    const { open, onClose } = props;
-    const pathName = usePathname();
-    const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
-    const content = (
+type Anchor = 'left';
+
+export default function SideNav({openNav, setOpenNav}: {openNav:boolean, setOpenNav:Function}){
+    const list = (anchor: Anchor) => (
+        <Box>
+            <List>
+                { items.map((item) => {
+                    return(
+                        <ListItem>
+                            <ListItemButton href={item.path}>
+                                {item.title}
+                            </ListItemButton>
+                        </ListItem>
+                    )
+                }) }
+            </List>
+        </Box>
+    )
+    return (
         <div>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%'
-                }}
+            <Drawer
+                anchor='left'
+                open={openNav}
+                onClose={() => setOpenNav(false)}
+                sx={{display:'flex', padding:'60px'}}
             >
-                <Box sx={{
-                    alignmentItems: 'center',
-                    backgroundColor: 'rgba(255,255,255,0.04)',
-                    borderRadius: 1,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    mt: 2,
-                    p: '12px'
-                }}>
-                    <div>
-                        <Typography
-                            color='inherit'
-                            variant='subtitle1'
-                        >
-                            Simodang
-                        </Typography>
-                        <Typography
-                            color='neutral.400'
-                            variant='body2'
-                        >
-                            Admin
-                        </Typography>
-                        <SvgIcon
-                            fontSize="small"
-                            sx={{ color: 'neutral.500' }}
-                        >
-                            <ChevronUpDownIcon />
-                        </SvgIcon>
-                    </div>
-                </Box>
-            </Box>
-            <Divider sx={{ borderColor: 'neutral.700' }} />
+                {list('left')}
+            </Drawer>
         </div>
     )
 }
-
