@@ -10,6 +10,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { api } from '@/hooks/hooks-api';
 import moment from 'moment-timezone';
+import axios from 'axios';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -41,12 +42,15 @@ export default function MetricDevicePage({ deviceId, openModal, setOpenModal }: 
         { field: 'deviceId', headerName: 'Device ID', width: 80 },
     ]
     const onSubmit = async () => {
-        await api.get(`/metrics/device/${deviceId}`, {
+        await axios.get(`http://devel-filkomub.site/admin/metrics/device/${deviceId}`, {
             params: {
                 timeString: date,
                 hours: 1
+            },
+            headers: {
+                Authorization: `Bearer ${localStorage['token']}`
             }
-        }).then(response => {console.log(response); setData(response.data)}).catch(err => console.log(err));
+        }).then(response => { console.log(response); setData(response.data) }).catch(err => console.log(err));
     }
     const rows: any[] = data;
 
@@ -60,7 +64,7 @@ export default function MetricDevicePage({ deviceId, openModal, setOpenModal }: 
             >
                 <Box sx={style}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePicker sx={{ margin: '10px' }} onChange={(event: any) => { setDate(moment.utc(event.$d, 'Asia/Bangkok').format())}} />
+                        <DateTimePicker sx={{ margin: '10px' }} onChange={(event: any) => { setDate(moment.utc(event.$d, 'Asia/Bangkok').format()) }} />
                     </LocalizationProvider>
                     <DataGrid
                         rows={rows}

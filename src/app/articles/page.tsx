@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import UpdateArticlePage from './update/page';
 import AddArticlePage from './add/page';
+import axios from 'axios';
 
 export default function MasterPage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -13,7 +14,11 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
     const [articleUpdate, setArticleUpdate] = useState({});
     useEffect(() => {
         const fetchData = async () => {
-            const response = await api.get('/articles');
+            const response = await axios.get('http://devel-filkomub.site/admin/articles',{
+                headers:{
+                    Authorization: `Bearer ${localStorage['token']}`
+                }
+            });
             setData(response.data);
         }
         fetchData();

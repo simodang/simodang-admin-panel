@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { redirect } from 'next/navigation';
 import { Card, CardContent, CardActions, Typography } from '@mui/material';
 import { api } from '@/hooks/hooks-api';
+import axios from 'axios';
 
 export default function Home() {
   const [user, setUser] = useState(0);
@@ -18,10 +19,26 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setUser((await api.get('/users')).data.length);
-      setMaster((await api.get('/masters')).data.length);
-      setDevice((await api.get('/devices')).data.length);
-      setArticle((await api.get('/articles')).data.length);
+      setUser((await axios.get('http://devel-filkomub.site/admin/users', {
+        headers: {
+          Authorization: `Bearer ${localStorage['token']}`
+        }
+      })).data.length);
+      setMaster((await axios.get('http://devel-filkomub.site/admin/masters', {
+        headers: {
+          Authorization: `Bearer ${localStorage['token']}`
+        }
+      })).data.length);
+      setDevice((await axios.get('http://devel-filkomub.site/admin/devices', {
+        headers: {
+          Authorization: `Bearer ${localStorage['token']}`
+        }
+      })).data.length);
+      setArticle((await axios.get('http://devel-filkomub.site/admin/articles', {
+        headers: {
+          Authorization: `Bearer ${localStorage['token']}`
+        }
+      })).data.length);
     }
     fetchData();
   });

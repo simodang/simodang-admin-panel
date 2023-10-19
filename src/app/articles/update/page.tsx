@@ -4,6 +4,7 @@ import { Modal, Box, Input, FormControl, FormLabel, Switch, Select, MenuItem } f
 import FormComponent from '@/components/forms/FormComponent';
 import { Field } from 'formik';
 import { api } from '@/hooks/hooks-api';
+import axios from 'axios';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -23,13 +24,16 @@ export default function UpdateArticlePage({ openModal, setOpenModal, article }: 
 
     const onSubmit = async (values:any) => {
         console.log(values);
-        // await api({
-        //     url:`/articles/${article.id}`,
-        //     method: 'patch',
-        //     data: values
-        // }).then((response) => {
-        //     console.log(response);
-        // }).catch(err => console.log(err));
+        await axios({
+            url:`http://devel-filkomub.site/admin/articles/${article.id}`,
+            method: 'patch',
+            data: values,
+            headers:{
+                Authorization: `Bearer ${localStorage['token']}`
+            }
+        }).then((response) => {
+            console.log(response);
+        }).catch(err => console.log(err));
     }
 
     const formComponent = () => {

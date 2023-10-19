@@ -7,6 +7,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import UpdateDevicePage from './update/page';
 import AddDevicePage from './add/page';
 import MetricDevicePage from './detail/page';
+import axios from 'axios';
 
 export default function DevicePage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -17,7 +18,11 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
     const [deviceDetail, setDeviceDetail] = useState('');
     useEffect(() => {
         const fetchData = async () => {
-            const response = await api.get('/devices');
+            const response = await axios.get('http://devel-filkomub.site/admin/devices', {
+                headers: {
+                    Authorization: `Bearer ${localStorage['token']}`
+                }
+            });
             setData(response.data);
         }
         fetchData();
@@ -86,7 +91,7 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <Button onClick={addDevice} sx={{backgroundColor:'white', margin: '10px'}}>
+            <Button onClick={addDevice} sx={{ backgroundColor: 'white', margin: '10px' }}>
                 Add Device
             </Button>
             <DataGrid
@@ -100,9 +105,9 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
                 }}
                 pageSizeOptions={[5, 10, 15, 20]}
             />
-            <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} device={deviceUpdate}/>
-            <AddDevicePage openModal={openModalAdd} setOpenModal={setOpenModalAdd}/>
-            <MetricDevicePage openModal={openModalDetail} setOpenModal={setOpenModalDetail} deviceId={deviceDetail}/>
+            <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} device={deviceUpdate} />
+            <AddDevicePage openModal={openModalAdd} setOpenModal={setOpenModalAdd} />
+            <MetricDevicePage openModal={openModalDetail} setOpenModal={setOpenModalDetail} deviceId={deviceDetail} />
         </div>
     )
 }

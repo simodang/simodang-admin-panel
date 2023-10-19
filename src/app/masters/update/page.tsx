@@ -4,6 +4,7 @@ import { Modal, Box, Input, FormControl, FormLabel, Switch, Select, MenuItem } f
 import FormComponent from '@/components/forms/FormComponent';
 import { Field } from 'formik';
 import { api } from '@/hooks/hooks-api';
+import axios from 'axios';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -15,34 +16,41 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-    color:'black'
-  };
+    color: 'black'
+};
 
-export default function UpdateMasterPage({ openModal, setOpenModal, master }: { openModal: boolean, setOpenModal: Function, master:any }) {
+export default function UpdateMasterPage({ openModal, setOpenModal, master }: { openModal: boolean, setOpenModal: Function, master: any }) {
     const [users, setUsers] = useState([]);
     const editableVariable = master;
 
     useEffect(() => {
         const fetchData = async () => {
-            await api.get('/users').then((response) => {
+            await axios.get('http://devel-filkomub.site/admin/users', {
+                headers: {
+                    Authorization: `Bearer ${localStorage['token']}`
+                }
+            }).then((response) => {
                 setUsers(response.data);
             }).catch(err => console.log(err));
         }
         fetchData();
-    },[]);
+    }, []);
 
-    const onSubmit = async (values:any) => {
+    const onSubmit = async (values: any) => {
         await api({
-            url:`/masters/${master.id}`,
+            url: `http://devel-filkomub.site/admin/masters/${master.id}`,
             method: 'patch',
-            data: values
+            data: values,
+            headers: {
+                Authorization: `Bearer ${localStorage['token']}`
+            }
         }).then((response) => {
             console.log(response);
         }).catch(err => console.log(err));
     }
 
     const formComponent = () => {
-        return(
+        return (
             <div>
                 {/* <Field name="name">
                     {({ field, form }: { field: any, form: any }) => (
@@ -54,7 +62,7 @@ export default function UpdateMasterPage({ openModal, setOpenModal, master }: { 
                 </Field> */}
                 <Field name="userId">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>User</FormLabel>
                             <Select {...field} spacing={3}>
                                 {

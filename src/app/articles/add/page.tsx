@@ -4,6 +4,7 @@ import { Input, FormControl, FormLabel, Switch, Select, MenuItem } from '@mui/ma
 import FormComponent from '@/components/forms/FormComponent';
 import { Field } from 'formik';
 import { api } from '@/hooks/hooks-api';
+import axios from 'axios';
 
 export default function AddArticlePage({openModal, setOpenModal}: {openModal: boolean, setOpenModal:Function}){
 
@@ -14,10 +15,13 @@ export default function AddArticlePage({openModal, setOpenModal}: {openModal: bo
     };
 
     const onSubmit = async (values:any) => {
-        await api({
-            url:`/articles`,
+        await axios({
+            url:`http://devel-filkomub.site/admin/articles`,
             method: 'post',
-            data: values
+            data: values,
+            headers:{
+                Authorization: `Bearer ${localStorage['token']}`
+            }
         }).then((response) => {
             console.log(response);
         }).catch(err => console.log(err));
