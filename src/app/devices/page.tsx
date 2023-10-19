@@ -8,6 +8,7 @@ import UpdateDevicePage from './update/page';
 import AddDevicePage from './add/page';
 import MetricDevicePage from './detail/page';
 import axios from 'axios';
+import { Layout } from '@/components/dashboard/layout';
 
 export default function DevicePage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -91,6 +92,7 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
+            <Layout></Layout>
             <Button onClick={addDevice} sx={{ backgroundColor: 'white', margin: '10px' }}>
                 Add Device
             </Button>

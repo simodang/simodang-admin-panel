@@ -19,4 +19,8 @@ export const items = [
         title: 'Users',
         path:'/users'
     },
+    {
+        title: 'Logs',
+        path:'/logs'
+    }
 ];
