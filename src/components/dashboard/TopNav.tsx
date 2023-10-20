@@ -73,7 +73,7 @@ export default function TopNav({ openNav, setOpenNav }: { openNav: boolean, setO
                             <MenuItem onClick={handleClose}>Profile</MenuItem>
                             <MenuItem onClick={() => {
                                 signOut(auth);
-                                localStorage['token'] = null;
+                                delete localStorage['token'];
                                 router.push('/auth/login');
                             }}>Logout</MenuItem>
                         </Menu>

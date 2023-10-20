@@ -9,6 +9,7 @@ import AddDevicePage from './add/page';
 import MetricDevicePage from './detail/page';
 import axios from 'axios';
 import { Layout } from '@/components/dashboard/layout';
+import { redirect } from 'next/navigation';
 
 export default function DevicePage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -92,24 +93,30 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <Layout></Layout>
-            <Button onClick={addDevice} sx={{ backgroundColor: 'white', margin: '10px' }}>
-                Add Device
-            </Button>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                sx={{ backgroundColor: 'white' }}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 15, 20]}
-            />
-            <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} device={deviceUpdate} />
-            <AddDevicePage openModal={openModalAdd} setOpenModal={setOpenModalAdd} />
-            <MetricDevicePage openModal={openModalDetail} setOpenModal={setOpenModalDetail} deviceId={deviceDetail} />
+            {
+                localStorage['token'] ? (
+                    <div>
+                        <Layout></Layout>
+                        <Button onClick={addDevice} sx={{ backgroundColor: 'white', margin: '10px 20px' }}>
+                            Add Device
+                        </Button>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            sx={{ backgroundColor: 'white', margin: '20px' }}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: { page: 0, pageSize: 5 },
+                                },
+                            }}
+                            pageSizeOptions={[5, 10, 15, 20]}
+                        />
+                        <UpdateDevicePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} device={deviceUpdate} />
+                        <AddDevicePage openModal={openModalAdd} setOpenModal={setOpenModalAdd} />
+                        <MetricDevicePage openModal={openModalDetail} setOpenModal={setOpenModalDetail} deviceId={deviceDetail} />
+                    </div>
+                ) : redirect('/auth/login')
+            }
         </div>
     )
 }

@@ -8,6 +8,7 @@ import UpdateMasterPage from './update/page';
 import AddMasterPage from './add/page';
 import axios from 'axios';
 import { Layout } from '@/components/dashboard/layout';
+import { redirect } from 'next/navigation';
 
 export default function MasterPage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -61,23 +62,29 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <Layout></Layout>
-            <Button onClick={addMaster} sx={{ backgroundColor: 'white', margin: '10px' }}>
-                Add Master
-            </Button>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                sx={{ backgroundColor: 'white' }}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 15, 20]}
-            />
-            <UpdateMasterPage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} master={masterUpdate} />
-            <AddMasterPage openModal={openModalAdd} setOpenModal={setOpenModalAdd} />
+            {
+                localStorage['token'] ? (
+                    <div>
+                        <Layout></Layout>
+                        <Button onClick={addMaster} sx={{ backgroundColor: 'white', margin: '10px 20px' }}>
+                            Add Master
+                        </Button>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            sx={{ backgroundColor: 'white', margin: '20px' }}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: { page: 0, pageSize: 5 },
+                                },
+                            }}
+                            pageSizeOptions={[5, 10, 15, 20]}
+                        />
+                        <UpdateMasterPage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} master={masterUpdate} />
+                        <AddMasterPage openModal={openModalAdd} setOpenModal={setOpenModalAdd} />
+                    </div>
+                ) : redirect('/auth/login')
+            }
         </div>
     )
 }
