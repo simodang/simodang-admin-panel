@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import UpdateMasterPage from './update/page';
 import AddMasterPage from './add/page';
+import axios from 'axios';
 
 export default function MasterPage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -16,7 +17,11 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
     const [deviceDetail, setDeviceDetail] = useState('');
     useEffect(() => {
         const fetchData = async () => {
-            const response = await api.get('/masters');
+            const response = await axios.get('http://devel-filkomub.site/admin/masters', {
+                headers: {
+                    Authorization: `Bearer ${localStorage['token']}`
+                }
+            });
             setData(response.data);
         }
         fetchData();
@@ -36,7 +41,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
     const columns: GridColDef[] = [
         { field: 'userId', headerName: 'User ID', width: 130 },
         { field: 'name', headerName: 'Name', width: 130 },
-        { field: 'simNumber', headerName: 'Sim Number', width: 130},
+        { field: 'simNumber', headerName: 'Sim Number', width: 130 },
         {
             field: "update",
             headerName: "Update",
@@ -71,7 +76,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <Button onClick={addMaster} sx={{backgroundColor:'white', margin: '10px'}}>
+            <Button onClick={addMaster} sx={{ backgroundColor: 'white', margin: '10px' }}>
                 Add Master
             </Button>
             <DataGrid
@@ -85,8 +90,8 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
                 }}
                 pageSizeOptions={[5, 10, 15, 20]}
             />
-            <UpdateMasterPage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} master={masterUpdate}/>
-            <AddMasterPage openModal={openModalAdd} setOpenModal={setOpenModalAdd}/>
+            <UpdateMasterPage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} master={masterUpdate} />
+            <AddMasterPage openModal={openModalAdd} setOpenModal={setOpenModalAdd} />
         </div>
     )
 }

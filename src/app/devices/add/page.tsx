@@ -4,8 +4,9 @@ import { Input, FormControl, FormLabel, Switch, Select, MenuItem } from '@mui/ma
 import FormComponent from '@/components/forms/FormComponent';
 import { Field } from 'formik';
 import { api } from '@/hooks/hooks-api';
+import axios from 'axios';
 
-export default function AddDevicePage({openModal, setOpenModal}: {openModal: boolean, setOpenModal:Function}){
+export default function AddDevicePage({ openModal, setOpenModal }: { openModal: boolean, setOpenModal: Function }) {
 
     const [users, setUsers] = useState([]);
     const [masters, setMasters] = useState([]);
@@ -18,21 +19,32 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
 
     useEffect(() => {
         const fetchData = async () => {
-            await api.get('/users').then((response) => {
+            await axios.get('http://devel-filkomub.site/admin/users', {
+                headers: {
+                    Authorization: `Bearer ${localStorage['token']}`
+                }
+            }).then((response) => {
                 setUsers(response.data);
             }).catch(err => console.log(err));
-            await api.get('/masters').then((response) => {
+            await axios.get('http://devel-filkomub.site/admin/masters', {
+                headers: {
+                    Authorization: `Bearer ${localStorage['token']}`
+                }
+            }).then((response) => {
                 setMasters(response.data);
             }).catch(err => console.log(err));
         }
         fetchData();
-    },[]);
+    }, []);
 
-    const onSubmit = async (values:any) => {
-        await api({
-            url:`/devices`,
+    const onSubmit = async (values: any) => {
+        await axios({
+            url: `http://devel-filkomub.site/admin/devices`,
             method: 'post',
-            data: values
+            data: values,
+            headers: {
+                Authorization: `Bearer ${localStorage['token']}`
+            }
         }).then((response) => {
             console.log(response);
         }).catch(err => console.log(err));
@@ -43,7 +55,7 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
             <div>
                 <Field name="id">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>ID</FormLabel>
                             <Input {...field} placeholder="ID" />
                         </FormControl>
@@ -51,7 +63,7 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
                 </Field>
                 <Field name="name">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Name</FormLabel>
                             <Input {...field} placeholder="Name" />
                         </FormControl>
@@ -59,7 +71,7 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
                 </Field>
                 <Field name="userId">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>User</FormLabel>
                             <Select {...field} spacing={3}>
                                 {
@@ -75,7 +87,7 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
                 </Field>
                 <Field name="masterId">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Master</FormLabel>
                             <Select {...field} spacing={3}>
                                 {
@@ -92,7 +104,7 @@ export default function AddDevicePage({openModal, setOpenModal}: {openModal: boo
             </div>
         )
     }
-    return(
+    return (
         <FormComponent
             editableVariable={editableVariable}
             onSubmit={onSubmit}

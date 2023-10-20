@@ -4,6 +4,7 @@ import { Modal, Box, Input, FormControl, FormLabel, Switch, Select, MenuItem } f
 import FormComponent from '@/components/forms/FormComponent';
 import { Field } from 'formik';
 import { api } from '@/hooks/hooks-api';
+import axios from 'axios';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -15,42 +16,53 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-    color:'black'
-  };
+    color: 'black'
+};
 
-export default function UpdateDevicePage({ openModal, setOpenModal, device }: { openModal: boolean, setOpenModal: Function, device:any }) {
+export default function UpdateDevicePage({ openModal, setOpenModal, device }: { openModal: boolean, setOpenModal: Function, device: any }) {
     const [users, setUsers] = useState([]);
     const [masters, setMasters] = useState([]);
     const editableVariable = device;
 
     useEffect(() => {
         const fetchData = async () => {
-            await api.get('/users').then((response) => {
+            await axios.get('http://devel-filkomub.site/admin/users', {
+                headers: {
+                    Authorization: `Bearer ${localStorage['token']}`
+                }
+            }).then((response) => {
                 setUsers(response.data);
             }).catch(err => console.log(err));
-            await api.get('/masters').then((response) => {
+            await axios.get('http://devel-filkomub.site/admin/masters', {
+                headers: {
+                    Authorization: `Bearer ${localStorage['token']}`
+                }
+            }).then((response) => {
                 setMasters(response.data);
             }).catch(err => console.log(err));
         }
         fetchData();
-    },[]);
+    }, []);
 
-    const onSubmit = async (values:any) => {
-        await api({
-            url:`/devices/${device.id}`,
+    const onSubmit = async (values: any) => {
+        await axios({
+            url: `http://devel-filkomub.site/admin/devices/${device.id}`,
             method: 'patch',
-            data: values
+            data: values,
+            headers: {
+                Authorization: `Bearer ${localStorage['token']}`
+            }
         }).then((response) => {
             console.log(response);
         }).catch(err => console.log(err));
     }
 
     const formComponent = () => {
-        return(
+        return (
             <div>
                 <Field name="name">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Name</FormLabel>
                             <Input {...field} placeholder="Name" />
                         </FormControl>
@@ -58,7 +70,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="notificationEnabled">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Notification Enabled</FormLabel>
                             <Switch {...field} defaultChecked={device.notificationEnabled === 1} onChange={(event: any) => {
                                 if (event.target.checked === true) {
@@ -68,13 +80,13 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                                     device.notificationEnabled = 0;
                                 }
                                 // console.log(device.notificationEnabled);
-                            }} value={device.notificationEnabled}/>
+                            }} value={device.notificationEnabled} />
                         </FormControl>
                     )}
                 </Field>
                 <Field name="isSaved">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Saved</FormLabel>
                             <Switch {...field} defaultChecked={device.isSaved === 1} onChange={(event: any) => {
                                 if (event.target.checked === true) {
@@ -82,41 +94,41 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                                 } else {
                                     device.isSaved = 0;
                                 }
-                            }} value={device.isSaved}/>
+                            }} value={device.isSaved} />
                         </FormControl>
                     )}
                 </Field>
                 <Field name="autoWaterEnabled">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Auto Water</FormLabel>
-                            <Switch {...field} defaultChecked={device.autoWaterEnabled === 1} onChange={(event : any) => {
+                            <Switch {...field} defaultChecked={device.autoWaterEnabled === 1} onChange={(event: any) => {
                                 if (event.target.checked === true) {
                                     device.autoWaterEnabled = 1;
                                 } else {
                                     device.autoWaterEnabled = 0;
                                 }
-                            }} value={device.autoWaterEnabled}/>
+                            }} value={device.autoWaterEnabled} />
                         </FormControl>
                     )}
                 </Field>
                 <Field name="autoFeedEnabled">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Auto Feed</FormLabel>
-                            <Switch {...field} defaultChecked={device.autoFeedEnabled === 1} onChange={(event : any) => {
+                            <Switch {...field} defaultChecked={device.autoFeedEnabled === 1} onChange={(event: any) => {
                                 if (event.target.checked === true) {
                                     device.autoFeedEnabled = 1;
                                 } else {
                                     device.autoFeedEnabled = 0;
                                 }
-                            }} value={device.autoFeedEnabled}/>
+                            }} value={device.autoFeedEnabled} />
                         </FormControl>
                     )}
                 </Field>
                 <Field name="tempLow">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Temp Low</FormLabel>
                             <Input {...field} placeholder="Temp Low" type="number" />
                         </FormControl>
@@ -124,7 +136,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="tempLow">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Temp Low</FormLabel>
                             <Input {...field} placeholder="Temp Low" type="number" />
                         </FormControl>
@@ -132,7 +144,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="tempHigh">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Temp High</FormLabel>
                             <Input {...field} placeholder="Temp High" type="number" />
                         </FormControl>
@@ -140,7 +152,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="phLow">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>pH Low</FormLabel>
                             <Input {...field} placeholder="pH Low" type="number" />
                         </FormControl>
@@ -148,7 +160,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="phHigh" >
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>pH High</FormLabel>
                             <Input {...field} placeholder="pH High" type="number" />
                         </FormControl>
@@ -156,7 +168,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="tdoLow">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>TDO Low</FormLabel>
                             <Input {...field} placeholder="TDO Low" type="number" />
                         </FormControl>
@@ -164,7 +176,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="tdoHigh">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>TDO High</FormLabel>
                             <Input {...field} placeholder="TDO High" type="number" />
                         </FormControl>
@@ -172,7 +184,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="tdsLow">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>TDS Low</FormLabel>
                             <Input {...field} placeholder="TDS Low" type="number" />
                         </FormControl>
@@ -180,7 +192,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="tdsHigh">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>TDS High</FormLabel>
                             <Input {...field} placeholder="TDS High" type="number" />
                         </FormControl>
@@ -188,7 +200,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="turbiditiesLow">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Turbidities Low</FormLabel>
                             <Input {...field} placeholder="Turbidities Low" type="number" />
                         </FormControl>
@@ -196,7 +208,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="turbiditiesHigh">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Turbidities High</FormLabel>
                             <Input {...field} placeholder="Turbidities High" type="number" />
                         </FormControl>
@@ -204,7 +216,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="userId">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>User</FormLabel>
                             <Select {...field} spacing={3}>
                                 {
@@ -220,7 +232,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                 </Field>
                 <Field name="masterId">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Master</FormLabel>
                             <Select {...field} spacing={3}>
                                 {

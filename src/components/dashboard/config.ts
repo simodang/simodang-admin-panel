@@ -1,5 +1,9 @@
 export const items = [
     {
+        title: 'Home',
+        path: '/'
+    },
+    {
         title: 'Devices',
         path:'/devices'
     },
