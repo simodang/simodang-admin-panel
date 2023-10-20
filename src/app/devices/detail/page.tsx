@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Box, Button, Modal } from '@mui/material';
+import { Input ,Box, Button, Modal } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
@@ -32,6 +32,7 @@ const style = {
 export default function MetricDevicePage({ deviceId, openModal, setOpenModal }: { deviceId: String, openModal: boolean, setOpenModal: Function }) {
     const [date, setDate] = useState('');
     const [data, setData] = useState([]);
+    const [hours, setHours] = useState(1);
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 100 },
         { field: 'temperature', headerName: 'Temperature', type: 'number', width: 80 },
@@ -45,7 +46,7 @@ export default function MetricDevicePage({ deviceId, openModal, setOpenModal }: 
         await axios.get(`http://devel-filkomub.site/admin/metrics/device/${deviceId}`, {
             params: {
                 timeString: date,
-                hours: 1
+                hours: hours
             },
             headers: {
                 Authorization: `Bearer ${localStorage['token']}`
@@ -66,6 +67,7 @@ export default function MetricDevicePage({ deviceId, openModal, setOpenModal }: 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker sx={{ margin: '10px' }} onChange={(event: any) => { setDate(moment.utc(event.$d, 'Asia/Bangkok').format()) }} />
                     </LocalizationProvider>
+                    <Input name='hours' type='number' placeholder='Last Hours' sx={{margin:'20px 20px 20px 0px'}} onChange={(event: any) => {setHours(event.nativeEvent.data)}}/>
                     <DataGrid
                         rows={rows}
                         columns={columns}
