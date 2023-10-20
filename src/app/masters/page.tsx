@@ -7,6 +7,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import UpdateMasterPage from './update/page';
 import AddMasterPage from './add/page';
 import axios from 'axios';
+import { Layout } from '@/components/dashboard/layout';
 
 export default function MasterPage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -76,6 +77,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
+            <Layout></Layout>
             <Button onClick={addMaster} sx={{ backgroundColor: 'white', margin: '10px' }}>
                 Add Master
             </Button>

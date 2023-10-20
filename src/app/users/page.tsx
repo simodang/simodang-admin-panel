@@ -5,6 +5,7 @@ import { api } from "@/hooks/hooks-api";
 import { Button } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import axios from 'axios';
+import { Layout } from '@/components/dashboard/layout';
 
 export default function MasterPage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -35,6 +36,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
+            <Layout></Layout>
             <DataGrid
                 rows={rows}
                 columns={columns}
