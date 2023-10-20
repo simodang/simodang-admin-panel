@@ -47,6 +47,7 @@ export default function AddDevicePage({ openModal, setOpenModal }: { openModal: 
             }
         }).then((response) => {
             console.log(response);
+            location.reload();
         }).catch(err => console.log(err));
     }
 

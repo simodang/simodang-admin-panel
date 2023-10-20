@@ -34,10 +34,6 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
         setMasterUpdate(params);
         setOpenModalUpdate(true);
     }
-    const handleOpenModalDetail = (params: any) => {
-        setDeviceDetail(params.id);
-        setOpenModalDetail(true);
-    }
 
     const columns: GridColDef[] = [
         { field: 'userId', headerName: 'User ID', width: 130 },
@@ -53,18 +49,6 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
                     handleOpenModalUpdate(params.row);
                 };
                 return <Button onClick={onClick}>Update</Button>;
-            }
-        },
-        {
-            field: "detail",
-            headerName: "Detail",
-            sortable: false,
-            renderCell: (params) => {
-                const onClick = () => {
-                    // console.log(params.row);
-                    handleOpenModalDetail(params.row);
-                };
-                return <Button onClick={onClick}>Detail</Button>;
             }
         },
     ];

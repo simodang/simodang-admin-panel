@@ -24,6 +24,7 @@ export default function AddArticlePage({openModal, setOpenModal}: {openModal: bo
             }
         }).then((response) => {
             console.log(response);
+            location.reload();
         }).catch(err => console.log(err));
     }
 
