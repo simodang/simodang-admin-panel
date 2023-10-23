@@ -44,7 +44,7 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
                         <DataGrid
                             rows={rows}
                             columns={columns}
-                            sx={{ backgroundColor: 'white', margin: '20px' }}
+                            sx={{ backgroundColor: 'white', margin: '20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}
                             initialState={{
                                 pagination: {
                                     paginationModel: { page: 0, pageSize: 5 },

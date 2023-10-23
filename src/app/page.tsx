@@ -54,20 +54,25 @@ export default function Home() {
               <Layout>
               </Layout>
               <Box
-                direction='column'
-                alignItems='center'
-                justifyContent='center'
-                sx={{ minHeight: '100vh' }}
+                sx={{
+                  width: '100%',
+                  bgcolor:'paper'
+                }}
               >
                 <Grid
                   container
+                  alignItems='center'
+                  justifyContent='center'
+                  sx={{ height:'50hv', flex: '20px' }}
                   spacing={2}
                 >
                   <Grid
                     item
-                    xs={3}
+                    alignItems='center'
+                    justifyContent='center'
+                  // xs={3}
                   >
-                    <Card sx={{ width: 200, height: 200, margin: '20px' }} variant='outlined'>
+                    <Card sx={{ width: 200, height: 200, margin: '20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}} variant='outlined'>
                       <CardContent >
                         <Typography variant="h3">
                           User
@@ -82,9 +87,11 @@ export default function Home() {
                   </Grid>
                   <Grid
                     item
-                    xs={3}
+                    alignItems='center'
+                    justifyContent='center'
+                  // xs={3}
                   >
-                    <Card sx={{ width: 200, height: 200, margin: '20px' }} variant='outlined'>
+                    <Card sx={{ width: 200, height: 200, margin: '20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }} variant='outlined'>
                       <CardContent>
                         <Typography variant="h3">
                           Device
@@ -97,11 +104,21 @@ export default function Home() {
                       </CardContent>
                     </Card>
                   </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems='center'
+                  justifyContent='center'
+                  // sx={{padding: '20px', flex: '20px' }}
+                  spacing={2}
+                >
                   <Grid
                     item
-                    xs={3}
+                    alignItems='center'
+                    justifyContent='center'
+                  // xs={3}
                   >
-                    <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column' }} variant='outlined'>
+                    <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }} variant='outlined'>
                       <CardContent>
                         <Typography variant="h3">
                           Master
@@ -116,9 +133,11 @@ export default function Home() {
                   </Grid>
                   <Grid
                     item
-                    xs={3}
+                    alignItems='center'
+                    justifyContent='center'
+                  // xs={3}
                   >
-                    <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column' }} variant='outlined'>
+                    <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }} variant='outlined'>
                       <CardContent>
                         <Typography variant="h3">
                           Article

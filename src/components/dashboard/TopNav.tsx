@@ -30,7 +30,7 @@ export default function TopNav({ openNav, setOpenNav }: { openNav: boolean, setO
         setAnchorEl(null);
     }
     return (
-        <Box sx={{ flexGrow: 1, display: 'flex' }}>
+        <Box sx={{ flexGrow: 1, display: 'flex', width:'100%' }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton

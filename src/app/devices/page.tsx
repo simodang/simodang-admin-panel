@@ -97,13 +97,13 @@ export default function DevicePage(props: { toggleTheme: React.MouseEventHandler
                 localStorage['token'] ? (
                     <div>
                         <Layout></Layout>
-                        <Button onClick={addDevice} sx={{ backgroundColor: 'white', margin: '10px 20px' }}>
+                        <Button onClick={addDevice} sx={{ backgroundColor: 'white', margin: '10px 20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
                             Add Device
                         </Button>
                         <DataGrid
                             rows={rows}
                             columns={columns}
-                            sx={{ backgroundColor: 'white', margin: '20px' }}
+                            sx={{ backgroundColor: 'white', margin: '20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}
                             initialState={{
                                 pagination: {
                                     paginationModel: { page: 0, pageSize: 5 },
