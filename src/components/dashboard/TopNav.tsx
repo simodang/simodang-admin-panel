@@ -1,5 +1,6 @@
 'use client';
 import { ChangeEvent, MouseEvent, useState } from 'react';
+import Image from 'next/image';
 import {
     AppBar,
     Box,
@@ -18,6 +19,7 @@ import SideNav from './SideNav';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/app/auth/login/config';
+import Logo from '../images/ShrimpLogo1.png';
 
 export default function TopNav({ openNav, setOpenNav }: { openNav: boolean, setOpenNav: Function }) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -30,8 +32,11 @@ export default function TopNav({ openNav, setOpenNav }: { openNav: boolean, setO
         setAnchorEl(null);
     }
     return (
-        <Box sx={{ flexGrow: 1, display: 'flex', width:'100%' }}>
-            <AppBar position="static">
+        <Box sx={{ flexGrow: 1, display: 'flex', width:'100%', bgcolor:'#90A7BF' }}>
+            <AppBar 
+                position="static"
+                sx={{bgcolor:'#204E7C'}}
+            >
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -43,6 +48,7 @@ export default function TopNav({ openNav, setOpenNav }: { openNav: boolean, setO
                     >
                         <MenuIcon />
                     </IconButton>
+                    <Image src={Logo} height={40} width={40} alt='Logo Simodang'/>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Simodang Admin
                     </Typography>

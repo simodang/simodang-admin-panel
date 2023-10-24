@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import {
     Box,
     Drawer,
@@ -21,6 +22,7 @@ export default function SideNav({openNav, setOpenNav}: {openNav:boolean, setOpen
                     return(
                         <ListItem>
                             <ListItemButton href={item.path}>
+                                <Image src={item.icon} height={24} width={24} alt='Icon SideNavBar' style={{margin:'0px 5px 5px 0px'}}/>
                                 {item.title}
                             </ListItemButton>
                         </ListItem>
