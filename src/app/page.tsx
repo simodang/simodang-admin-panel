@@ -6,7 +6,7 @@ import styles from './page.module.css';
 import { Layout } from '@/components/dashboard/layout';
 import { useState, useEffect } from 'react';
 import { redirect } from 'next/navigation';
-import { Card, CardContent, CardActions, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography, Grid } from '@mui/material';
 import { api } from '@/hooks/hooks-api';
 import axios from 'axios';
 
@@ -16,6 +16,8 @@ export default function Home() {
   const [article, setArticle] = useState(0);
   const [master, setMaster] = useState(0);
   // const router = useRouter();
+
+  console.log(localStorage['token']);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,63 +49,110 @@ export default function Home() {
     <main>
       <div>
         {
-          localStorage['token'] !== null || localStorage['token'] !== undefined ? (
+          !localStorage['token'] ? redirect('/auth/login') : (
             <div>
               <Layout>
               </Layout>
-              <div>
-                <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column' }} variant='outlined'>
-                  <CardContent>
-                    <Typography variant="h3">
-                      User
-                    </Typography>
-                    <Typography sx={{ margin: '30px' }} className='spacing'>
-                    </Typography>
-                    <Typography variant='h4'>
-                      {user}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column' }} variant='outlined'>
-                  <CardContent>
-                    <Typography variant="h3">
-                      Device
-                    </Typography>
-                    <Typography sx={{ margin: '30px' }} className='spacing'>
-                    </Typography>
-                    <Typography variant='h4'>
-                      {device}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column' }} variant='outlined'>
-                  <CardContent>
-                    <Typography variant="h3">
-                      Master
-                    </Typography>
-                    <Typography sx={{ margin: '30px' }} className='spacing'>
-                    </Typography>
-                    <Typography variant='h4'>
-                      {master}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column' }} variant='outlined'>
-                  <CardContent>
-                    <Typography variant="h3">
-                      Article
-                    </Typography>
-                    <Typography sx={{ margin: '30px' }} className='spacing'>
-                    </Typography>
-                    <Typography variant='h4'>
-                      {article}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </div>
+              <Box
+                sx={{
+                  width: '100%',
+                  bgcolor:'paper'
+                }}
+              >
+                <Grid
+                  container
+                  alignItems='center'
+                  justifyContent='center'
+                  sx={{ height:'50hv', flex: '20px' }}
+                  spacing={2}
+                >
+                  <Grid
+                    item
+                    alignItems='center'
+                    justifyContent='center'
+                  // xs={3}
+                  >
+                    <Card sx={{ width: 200, height: 200, margin: '20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}} variant='outlined'>
+                      <CardContent >
+                        <Typography variant="h3">
+                          User
+                        </Typography>
+                        <Typography sx={{ margin: '30px' }} className='spacing'>
+                        </Typography>
+                        <Typography variant='h4'>
+                          {user}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid
+                    item
+                    alignItems='center'
+                    justifyContent='center'
+                  // xs={3}
+                  >
+                    <Card sx={{ width: 200, height: 200, margin: '20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }} variant='outlined'>
+                      <CardContent>
+                        <Typography variant="h3">
+                          Device
+                        </Typography>
+                        <Typography sx={{ margin: '30px' }} className='spacing'>
+                        </Typography>
+                        <Typography variant='h4'>
+                          {device}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  alignItems='center'
+                  justifyContent='center'
+                  // sx={{padding: '20px', flex: '20px' }}
+                  spacing={2}
+                >
+                  <Grid
+                    item
+                    alignItems='center'
+                    justifyContent='center'
+                  // xs={3}
+                  >
+                    <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }} variant='outlined'>
+                      <CardContent>
+                        <Typography variant="h3">
+                          Master
+                        </Typography>
+                        <Typography sx={{ margin: '30px' }} className='spacing'>
+                        </Typography>
+                        <Typography variant='h4'>
+                          {master}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid
+                    item
+                    alignItems='center'
+                    justifyContent='center'
+                  // xs={3}
+                  >
+                    <Card sx={{ width: 200, height: 200, margin: '20px', display: 'flex', flexDirection: 'column', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }} variant='outlined'>
+                      <CardContent>
+                        <Typography variant="h3">
+                          Article
+                        </Typography>
+                        <Typography sx={{ margin: '30px' }} className='spacing'>
+                        </Typography>
+                        <Typography variant='h4'>
+                          {article}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </Box>
             </div>
-          ) : (
-            redirect('/auth/login')
           )
         }
       </div>

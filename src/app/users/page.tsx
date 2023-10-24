@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import axios from 'axios';
 import { Layout } from '@/components/dashboard/layout';
+import { redirect } from 'next/navigation';
 
 export default function MasterPage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -36,18 +37,25 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <Layout></Layout>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                // sx={{ backgroundColor: 'white' }}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 15, 20]}
-            />
+            {
+                localStorage['token'] ? (
+                    <div>
+                        <Layout></Layout>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            sx={{ backgroundColor: 'white', margin: '20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: { page: 0, pageSize: 5 },
+                                },
+                            }}
+                            pageSizeOptions={[5, 10, 15, 20]}
+                        />
+                    </div>
+                ) : redirect('/auth/login')
+
+            }
         </div>
     )
 }

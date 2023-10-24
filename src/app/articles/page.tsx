@@ -7,6 +7,7 @@ import UpdateArticlePage from './update/page';
 import AddArticlePage from './add/page';
 import axios from 'axios';
 import { Layout } from '@/components/dashboard/layout';
+import { redirect } from 'next/navigation';
 
 export default function MasterPage(props: { toggleTheme: React.MouseEventHandler<HTMLAnchorElement> }) {
     const [data, setData] = useState([]);
@@ -15,8 +16,8 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
     const [articleUpdate, setArticleUpdate] = useState({});
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://devel-filkomub.site/admin/articles',{
-                headers:{
+            const response = await axios.get('http://devel-filkomub.site/admin/articles', {
+                headers: {
                     Authorization: `Bearer ${localStorage['token']}`
                 }
             });
@@ -35,8 +36,8 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
     const columns: GridColDef[] = [
         { field: 'title', headerName: 'Title', width: 150 },
         { field: 'url', headerName: 'URL', width: 300 },
-        { field: 'image', headerName: 'Image', width: 130, renderCell: (params) => <img src={params.value}/>},
-        { field: 'published', headerName: 'Published', type:'boolean', width: 130 },
+        { field: 'image', headerName: 'Image', width: 130, renderCell: (params) => <img src={params.value} /> },
+        { field: 'published', headerName: 'Published', type: 'boolean', width: 130 },
         {
             field: "update",
             headerName: "Update",
@@ -59,23 +60,31 @@ export default function MasterPage(props: { toggleTheme: React.MouseEventHandler
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <Layout></Layout>
-            <Button onClick={addArticle} sx={{backgroundColor:'white', margin: '10px'}}>
-                Add Article
-            </Button>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                sx={{ backgroundColor: 'white' }}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10, 15, 20]}
-            />
-            <UpdateArticlePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} article={articleUpdate}/>
-            <AddArticlePage openModal={openModalAdd} setOpenModal={setOpenModalAdd}/>
+            {
+                localStorage['token'] ? (
+                    <div>
+                        <Layout></Layout>
+                        <Button onClick={addArticle} sx={{ backgroundColor: 'white', margin: '10px 20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
+                            Add Article
+                        </Button>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            sx={{ backgroundColor: 'white', margin: '20px', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: { page: 0, pageSize: 5 },
+                                },
+                            }}
+                            pageSizeOptions={[5, 10, 15, 20]}
+                        />
+                        <UpdateArticlePage openModal={openModalUpdate} setOpenModal={setOpenModalUpdate} article={articleUpdate} />
+                        <AddArticlePage openModal={openModalAdd} setOpenModal={setOpenModalAdd} />
+                    </div>
+                ) : (
+                    redirect('/auth/login')
+                )
+            }
         </div>
     )
 }
