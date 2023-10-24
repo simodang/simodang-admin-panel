@@ -1,10 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Modal, Box, Input, FormControl, FormLabel, Switch, Select, MenuItem } from '@mui/material';
+import { Input, FormControl, FormLabel, Switch, Select, MenuItem } from '@mui/material';
 import FormComponent from '@/components/forms/FormComponent';
 import { Field } from 'formik';
-import { api } from '@/hooks/hooks-api';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -22,7 +23,29 @@ const style = {
 export default function UpdateDevicePage({ openModal, setOpenModal, device }: { openModal: boolean, setOpenModal: Function, device: any }) {
     const [users, setUsers] = useState([]);
     const [masters, setMasters] = useState([]);
-    const editableVariable = device;
+    const router = useRouter();
+    const editableVariable = {
+        name: device.name,
+        userId: device.userId,
+        masterId: device.masterId,
+        notificationEnabled: device.notificationEnabled,
+        autoWaterEnabled: device.autoWaterEnabled,
+        autoFeedEnabled: device.autoFeedEnabled,
+        isSaved: device.isSaved,
+        tempLow: Number(device.tempLow),
+        tempHigh: Number(device.tempHigh),
+        phLow: Number(device.phLow),
+        phHigh: Number(device.phHigh),
+        tdoLow: Number(device.tdoLow),
+        tdoHigh: Number(device.tdoHigh),
+        tdsLow: Number(device.tdsLow),
+        tdsHigh: Number(device.tdsHigh),
+        turbiditiesLow: Number(device.turbiditiesLow),
+        turbiditiesHigh: Number(device.turbiditiesHigh),
+      };
+
+      console.log(editableVariable);
+    //   console.log(autoWaterEnabled);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,6 +77,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
             }
         }).then((response) => {
             console.log(response);
+            location.reload();
         }).catch(err => console.log(err));
     }
 
@@ -72,15 +96,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Notification Enabled</FormLabel>
-                            <Switch {...field} defaultChecked={device.notificationEnabled === 1} onChange={(event: any) => {
-                                if (event.target.checked === true) {
-                                    device.notificationEnabled = 1;
-                                } else {
-                                    event.target.checked = false;
-                                    device.notificationEnabled = 0;
-                                }
-                                // console.log(device.notificationEnabled);
-                            }} value={device.notificationEnabled} />
+                            <Switch {...field} defaultChecked={device.notificationEnabled} />
                         </FormControl>
                     )}
                 </Field>
@@ -88,13 +104,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Saved</FormLabel>
-                            <Switch {...field} defaultChecked={device.isSaved === 1} onChange={(event: any) => {
-                                if (event.target.checked === true) {
-                                    device.isSaved = 1;
-                                } else {
-                                    device.isSaved = 0;
-                                }
-                            }} value={device.isSaved} />
+                            <Switch {...field} defaultChecked={device.isSaved} />
                         </FormControl>
                     )}
                 </Field>
@@ -102,13 +112,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Auto Water</FormLabel>
-                            <Switch {...field} defaultChecked={device.autoWaterEnabled === 1} onChange={(event: any) => {
-                                if (event.target.checked === true) {
-                                    device.autoWaterEnabled = 1;
-                                } else {
-                                    device.autoWaterEnabled = 0;
-                                }
-                            }} value={device.autoWaterEnabled} />
+                            <Switch {...field} defaultChecked={device.autoWaterEnabled} />
                         </FormControl>
                     )}
                 </Field>
@@ -116,13 +120,7 @@ export default function UpdateDevicePage({ openModal, setOpenModal, device }: { 
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Auto Feed</FormLabel>
-                            <Switch {...field} defaultChecked={device.autoFeedEnabled === 1} onChange={(event: any) => {
-                                if (event.target.checked === true) {
-                                    device.autoFeedEnabled = 1;
-                                } else {
-                                    device.autoFeedEnabled = 0;
-                                }
-                            }} value={device.autoFeedEnabled} />
+                            <Switch {...field} defaultChecked={device.autoFeedEnabled}/>
                         </FormControl>
                     )}
                 </Field>

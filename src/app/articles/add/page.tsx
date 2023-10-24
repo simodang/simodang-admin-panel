@@ -24,6 +24,7 @@ export default function AddArticlePage({openModal, setOpenModal}: {openModal: bo
             }
         }).then((response) => {
             console.log(response);
+            location.reload();
         }).catch(err => console.log(err));
     }
 
@@ -50,7 +51,7 @@ export default function AddArticlePage({openModal, setOpenModal}: {openModal: bo
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{margin: '10px'}}>
                             <FormLabel>Image</FormLabel>
-                            <Input {...field} type='file' accept="image/png, image/jpeg" placeholder="" />
+                            <Input {...field} placeholder="Image URL" />
                         </FormControl>
                     )}
                 </Field>

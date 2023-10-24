@@ -46,20 +46,29 @@ export default function UpdateMasterPage({ openModal, setOpenModal, master }: { 
             }
         }).then((response) => {
             console.log(response);
+            location.reload();
         }).catch(err => console.log(err));
     }
 
     const formComponent = () => {
         return (
             <div>
-                {/* <Field name="name">
+                <Field name="name">
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{margin: '10px'}}>
                             <FormLabel>Name</FormLabel>
                             <Input {...field} placeholder="Name" />
                         </FormControl>
                     )}
-                </Field> */}
+                </Field>
+                <Field name="simNumber">
+                    {({ field, form }: { field: any, form: any }) => (
+                        <FormControl sx={{margin: '10px'}}>
+                            <FormLabel>Sim Number</FormLabel>
+                            <Input {...field} placeholder="Sim Number" />
+                        </FormControl>
+                    )}
+                </Field>
                 <Field name="userId">
                     {({ field, form }: { field: any, form: any }) => (
                         <FormControl sx={{ margin: '10px' }}>

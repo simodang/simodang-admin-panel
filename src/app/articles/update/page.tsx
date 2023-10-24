@@ -16,41 +16,59 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-    color:'black'
-  };
+    color: 'black'
+};
 
-export default function UpdateArticlePage({ openModal, setOpenModal, article }: { openModal: boolean, setOpenModal: Function, article:any }) {
+export default function UpdateArticlePage({ openModal, setOpenModal, article }: { openModal: boolean, setOpenModal: Function, article: any }) {
     const editableVariable = article;
 
-    const onSubmit = async (values:any) => {
+    const onSubmit = async (values: any) => {
         console.log(values);
         await axios({
-            url:`http://devel-filkomub.site/admin/articles/${article.id}`,
+            url: `http://devel-filkomub.site/admin/articles/${article.id}`,
             method: 'patch',
             data: values,
-            headers:{
+            headers: {
                 Authorization: `Bearer ${localStorage['token']}`
             }
         }).then((response) => {
             console.log(response);
+            location.reload();
         }).catch(err => console.log(err));
     }
 
     const formComponent = () => {
-        return(
+        return (
             <div>
-               <Field name="published" components={Switch}>
+                <Field name="title">
                     {({ field, form }: { field: any, form: any }) => (
-                        <FormControl sx={{margin: '10px'}}>
+                        <FormControl sx={{ margin: '10px' }}>
+                            <FormLabel>Title</FormLabel>
+                            <Input {...field} placeholder="Title" />
+                        </FormControl>
+                    )}
+                </Field>
+                <Field name="url">
+                    {({ field, form }: { field: any, form: any }) => (
+                        <FormControl sx={{ margin: '10px' }}>
+                            <FormLabel>URL</FormLabel>
+                            <Input {...field} placeholder="URL" />
+                        </FormControl>
+                    )}
+                </Field>
+                <Field name="image">
+                    {({ field, form }: { field: any, form: any }) => (
+                        <FormControl sx={{ margin: '10px' }}>
+                            <FormLabel>Image</FormLabel>
+                            <Input {...field} placeholder="Image URL" />
+                        </FormControl>
+                    )}
+                </Field>
+                <Field name="published" components={Switch}>
+                    {({ field, form }: { field: any, form: any }) => (
+                        <FormControl sx={{ margin: '10px' }}>
                             <FormLabel>Published</FormLabel>
-                            <Switch {...field} defaultChecked={article.published === 1} onChange={(event) => {
-                                if(event.target.checked === true){
-                                    return (field.value=1);
-                                }else{
-                                    return(field.value=0)
-                                }
-                                console.log(field);
-                            }}/>
+                            <Switch {...field} defaultChecked={article.published} />
                         </FormControl>
                     )}
                 </Field>
