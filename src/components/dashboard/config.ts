@@ -12,41 +12,47 @@ export const items = [
         path: '/',
         icon: (
             HomeLogo
-        )
+        ),
+        key: 'home'
     },
     {
         title: 'Devices',
         path:'/devices',
         icon: (
             DeviceLogo
-        )
+        ),
+        key: 'devices'
     },
     {
         title: 'Masters',
         path:'/masters',
         icon: (
             MasterLogo
-        )
+        ),
+        key: 'masters'
     },
     {
         title: 'Articles',
         path:'/articles',
         icon: (
             ArticleLogo
-        )
+        ),
+        key: 'articles'
     },
     {
         title: 'Users',
         path:'/users',
         icon: (
             UserLogo
-        )
+        ),
+        key: 'users'
     },
     {
         title: 'Logs',
         path:'/logs',
         icon: (
             LogLogo
-        )
+        ),
+        key: 'logs'
     }
 ];

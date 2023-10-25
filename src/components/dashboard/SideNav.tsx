@@ -20,7 +20,7 @@ export default function SideNav({openNav, setOpenNav}: {openNav:boolean, setOpen
             <List>
                 { items.map((item) => {
                     return(
-                        <ListItem>
+                        <ListItem key={item.key}>
                             <ListItemButton href={item.path}>
                                 <Image src={item.icon} height={24} width={24} alt='Icon SideNavBar' style={{margin:'0px 5px 5px 0px'}}/>
                                 {item.title}
