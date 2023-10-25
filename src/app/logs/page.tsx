@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Layout } from '@/components/dashboard/layout';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import axios from 'axios';
-import { redirect } from 'next/navigation';
+import { RedirectType, redirect } from 'next/navigation';
 
 export default function LogsPage() {
     const [logs, setLogs] = useState([]);
@@ -19,7 +19,7 @@ export default function LogsPage() {
             setLogs(response.data);
         }
         fetchData();
-    });
+    },[]);
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 130 },
@@ -48,7 +48,7 @@ export default function LogsPage() {
                             pageSizeOptions={[5, 10, 15, 20]}
                         />
                     </div>
-                ) : redirect('/auth/login')
+                ) : redirect('/auth/login', RedirectType.push)
             }
         </div>
     )
