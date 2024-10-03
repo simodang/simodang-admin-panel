@@ -3,15 +3,21 @@ import localFont from "next/font/local";
 import "./globals.css";
 import ThemeProviders from "@/libs/providers/ThemeProviders";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
+
+const ubuntu = localFont({
+  src: "./fonts/Ubuntu-R.woff",
+  variable: "--font-ubuntu-r",
+  weight: "300 400 500 700",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-white dark:bg-black antialiased`}
+        className={`${ubuntu.variable} font-[family-name:var(--font-ubuntu-r)] antialiased`}
       >
         <ThemeProviders>{children}</ThemeProviders>
       </body>
