@@ -8,8 +8,8 @@ const ThemeProviders = ({ children }: { children: ReactNode }) => {
     <ThemeProvider
       attribute="class"
       defaultTheme="light"
-      forcedTheme="light"
-      enableColorScheme
+      enableSystem
+      disableTransitionOnChange
     >
       {children}
     </ThemeProvider>
