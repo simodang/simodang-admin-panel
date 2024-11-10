@@ -1,15 +1,115 @@
 import { Button } from "@/components/ui/button/Button";
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table/Table";
 import Image from "next/image";
+
+const invoices = [
+  {
+    invoice: "INV001",
+    paymentStatus: "Paid",
+    totalAmount: "$250.00",
+    paymentMethod: "Credit Card",
+    paymentMethod2: "Credit Card",
+    paymentMethod3: "Credit Card",
+    paymentMethod4: "Credit Card",
+  },
+  {
+    invoice: "INV002",
+    paymentStatus: "Pending",
+    totalAmount: "$150.00",
+    paymentMethod: "PayPal",
+    paymentMethod2: "Credit Card",
+    paymentMethod3: "Credit Card",
+    paymentMethod4: "Credit Card",
+  },
+  {
+    invoice: "INV003",
+    paymentStatus: "Unpaid",
+    totalAmount: "$350.00",
+    paymentMethod: "Bank Transfer",
+    paymentMethod2: "Credit Card",
+    paymentMethod3: "Credit Card",
+    paymentMethod4: "Credit Card",
+  },
+  {
+    invoice: "INV004",
+    paymentStatus: "Paid",
+    totalAmount: "$450.00",
+    paymentMethod: "Credit Card",
+    paymentMethod2: "Credit Card",
+    paymentMethod3: "Credit Card",
+    paymentMethod4: "Credit Card",
+  },
+  {
+    invoice: "INV005",
+    paymentStatus: "Paid",
+    totalAmount: "$550.00",
+    paymentMethod: "PayPal",
+    paymentMethod2: "Credit Card",
+    paymentMethod3: "Credit Card",
+    paymentMethod4: "Credit Card",
+  },
+  {
+    invoice: "INV006",
+    paymentStatus: "Pending",
+    totalAmount: "$200.00",
+    paymentMethod: "Bank Transfer",
+    paymentMethod2: "Credit Card",
+    paymentMethod3: "Credit Card",
+    paymentMethod4: "Credit Card",
+  },
+  {
+    invoice: "INV007",
+    paymentStatus: "Unpaid",
+    totalAmount: "$300.00",
+    paymentMethod: "Credit Card",
+    paymentMethod2: "Credit Card",
+    paymentMethod3: "Credit Card",
+    paymentMethod4: "Credit Card",
+  },
+]
 
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <div>
-        <Button>Button Default</Button>
-        <Button variant="danger">Button Danger</Button>
-        <Button variant="outline-tertiary">Button Outline</Button>
-      </div>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        <div>
+          <Button>Button Default</Button>
+          <Button variant="danger">Button Danger</Button>
+          <Button variant="outline-tertiary">Button Outline</Button>
+
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Invoice</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Method</TableHead>
+                <TableHead>Method</TableHead>
+                <TableHead>Method</TableHead>
+                <TableHead>Method</TableHead>
+                <TableHead className="text-right">Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {invoices.map((invoice) => (
+                <TableRow key={invoice.invoice}>
+                  <TableCell className="font-medium">{invoice.invoice}</TableCell>
+                  <TableCell>{invoice.paymentStatus}</TableCell>
+                  <TableCell>{invoice.paymentMethod}</TableCell>
+                  <TableCell>{invoice.paymentMethod}</TableCell>
+                  <TableCell>{invoice.paymentMethod}</TableCell>
+                  <TableCell>{invoice.paymentMethod}</TableCell>
+                  <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={1}>Total</TableCell>
+                <TableCell colSpan={6} className="text-center">$2,500.00</TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </div>
         <p className="font-light">300</p>
         <p className="font-normal">400</p>
         <p className="font-medium">500</p>
