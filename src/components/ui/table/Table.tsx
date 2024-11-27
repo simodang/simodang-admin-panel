@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 import { cn } from "@/libs/utils/TailwindUtils";
 
@@ -14,9 +14,9 @@ const Table = React.forwardRef<
       {...props}
     />
   </div>
-))
+));
 
-Table.displayName = "Table"
+Table.displayName = "Table";
 
 // == TABLE HEADER == //
 const TableHeader = React.forwardRef<
@@ -24,9 +24,9 @@ const TableHeader = React.forwardRef<
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
   <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
-))
+));
 
-TableHeader.displayName = "TableHeader"
+TableHeader.displayName = "TableHeader";
 
 // == TABLE BODY == //
 const TableBody = React.forwardRef<
@@ -38,12 +38,12 @@ const TableBody = React.forwardRef<
     className={cn("[&_tr:last-child]:border-0", className)}
     {...props}
   />
-))
+));
 
-TableBody.displayName = "TableBody"
+TableBody.displayName = "TableBody";
 
 // == TABLE FOOTER == //
-  const TableFooter = React.forwardRef<
+const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
@@ -55,9 +55,9 @@ TableBody.displayName = "TableBody"
     )}
     {...props}
   />
-))
+));
 
-TableFooter.displayName = "TableFooter"
+TableFooter.displayName = "TableFooter";
 
 // == TABLE ROW == //
 const TableRow = React.forwardRef<
@@ -72,9 +72,9 @@ const TableRow = React.forwardRef<
     )}
     {...props}
   />
-))
+));
 
-TableRow.displayName = "TableRow"
+TableRow.displayName = "TableRow";
 
 // == TABLE HEAD == //
 const TableHead = React.forwardRef<
@@ -89,9 +89,9 @@ const TableHead = React.forwardRef<
     )}
     {...props}
   />
-))
+));
 
-TableHead.displayName = "TableHead"
+TableHead.displayName = "TableHead";
 
 // == TABLE CELL == //
 const TableCell = React.forwardRef<
@@ -103,9 +103,9 @@ const TableCell = React.forwardRef<
     className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0", className)}
     {...props}
   />
-))
+));
 
-TableCell.displayName = "TableCell"
+TableCell.displayName = "TableCell";
 
 export {
   Table,
@@ -115,4 +115,4 @@ export {
   TableRow,
   TableHead,
   TableCell
-}
+};

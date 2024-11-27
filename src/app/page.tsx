@@ -66,7 +66,7 @@ const invoices = [
     paymentMethod3: "Credit Card",
     paymentMethod4: "Credit Card",
   },
-]
+];
 
 export default function Home() {
   return (

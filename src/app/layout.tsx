@@ -1,6 +1,8 @@
+import React from "react";
+
 import type { Metadata } from "next";
 // import localFont from "next/font/local";
-import {Ubuntu} from "next/font/google"
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import ThemeProviders from "@/libs/providers/ThemeProviders";
 
@@ -8,7 +10,7 @@ const ubuntu = Ubuntu({
   subsets: ["latin"],
   weight: ['300', '400', '500', '700'],
   variable: "--font-ubuntu"
-})
+});
 
 // const ubuntu = localFont({
 //   src: "./fonts/Ubuntu-R.woff",
