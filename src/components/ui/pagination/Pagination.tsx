@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { cn } from "@/libs/utils/TailwindUtils";
 import { ButtonProps, buttonVariants } from "../button/Button";
-import { ArrowLeft2, ArrowRight2, More, More2 } from "iconsax-react";
+import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
 import { MoreHorizontal } from "lucide-react";
 
 // == PAGINATION == //
