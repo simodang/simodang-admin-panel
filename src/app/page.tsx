@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button/Button";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination/Pagination";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table/Table";
 import Image from "next/image";
 
@@ -75,7 +76,10 @@ export default function Home() {
         <div>
           <Button>Button Default</Button>
           <Button variant="danger">Button Danger</Button>
+          <Button variant="secondary">Button Danger</Button>
           <Button variant="outline-tertiary">Button Outline</Button>
+          <Button variant="outline-primary">Button Outline</Button>
+          <Button variant="ghost">Button Outline</Button>
 
           <Table>
             <TableHeader>
@@ -109,6 +113,31 @@ export default function Home() {
               </TableRow>
             </TableFooter>
           </Table>
+          
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#" isActive>
+            2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
         <p className="font-light">300</p>
         <p className="font-normal">400</p>
