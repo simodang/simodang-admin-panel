@@ -3,39 +3,96 @@
   "rules": {
     // Semicolons
     "semi": ["error", "always"],
-    "semi-spacing": ["error", { "before": false, "after": true }],
+    "semi-spacing": [
+      "error", 
+      { 
+        "before": false, 
+        "after": true 
+      }
+    ],
     "semi-style": ["error", "last"],
 
     // Spacing
     "indent": ["error", 2],
     "array-bracket-spacing": ["error", "never"],
     "object-curly-spacing": ["error", "always"],
-    "comma-spacing": ["error", { "before": false, "after": true }],
-    "key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
-    "keyword-spacing": ["error", { "before": true, "after": true }],
+    "comma-spacing": [
+      "error", 
+      { 
+        "before": false, 
+        "after": true 
+      }
+    ],
+    "key-spacing": [
+      "error", 
+      { 
+        "beforeColon": false, 
+        "afterColon": true 
+      }
+    ],
+    "keyword-spacing": [
+      "error", 
+      {
+        "before": true,
+        "after": true
+      }
+    ],
     "space-before-blocks": ["error", "always"],
-    "space-before-function-paren": ["error", {
-      "anonymous": "always",
-      "named": "never",
-      "asyncArrow": "always"
-    }],
+    "space-before-function-paren": [
+      "error", 
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
     "space-in-parens": ["error", "never"],
     "space-infix-ops": "error",
-    "arrow-spacing": ["error", { "before": true, "after": true }],
+    "arrow-spacing": [
+      "error", 
+      { 
+        "before": true, 
+        "after": true 
+      }
+    ],
 
     // Line breaks and max lengths
-    "max-len": ["error", { 
-      "code": 100,
-      "ignoreComments": true,
-      "ignoreStrings": true,
-      "ignoreTemplateLiterals": true
-    }],
-    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "max-len": [
+      "error",
+      { 
+        "code": 100,
+        "ignoreComments": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "no-multiple-empty-lines": [
+      "error", 
+      { 
+        "max": 1, 
+        "maxEOF": 0 
+      }
+    ],
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" },
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
       { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"]}
+    ],
+    
+    // Unused variables
+    "no-unused-vars": "off",
+    "arrow-body-style": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { 
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
     ]
-  }
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ]
 }
