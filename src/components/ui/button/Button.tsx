@@ -18,18 +18,20 @@ const buttonVariants = cva(
         danger:
           "bg-schemes-light-error text-schemes-light-on-error hover:bg-schemes-light-error/90",
         "outline-primary":
-          "border-2 border-light-primary text-schemes-light-primary bg-schemes-light-surface",
+          "border border-light-primary text-schemes-light-primary bg-transparent hover:bg-schemes-light-surface/40",
         "outline-secondary":
-          "border-2 border-light-secondary text-schemes-light-primary bg-schemes-light-surface",
+          "border border-light-secondary text-schemes-light-primary bg-schemes-light-surface hover:bg-schemes-light-surface/90",
         "outline-tertiary":
-          "border-2 border-light-tertiary text-schemes-light-primary bg-schemes-light-surface",
+          "border border-light-tertiary text-schemes-light-primary bg-schemes-light-surface hover:bg-schemes-light-surface/90",
         "outline-danger":
-          "border-2 border-light-error text-schemes-light-primary bg-schemes-light-surface",
+          "border border-light-error text-schemes-light-primary bg-schemes-light-surface hover:bg-schemes-light-surface/90",
+        ghost: "bg-transparent text-schemes-light-primary hover:bg-schemes-light-surface/40",
       },
       size: {
         small: "h-7 w-[69] px-3.5 py-1.5 text-xs",
         default: "h-[38] w-[87] py-2.5 px-5 text-sm",
         large: "h-12 w-[106] px-7 py-3.5 text-base",
+        icon: "h-10 w-10 p-0",
       },
     },
     defaultVariants: {
