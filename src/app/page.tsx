@@ -10,6 +10,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination/Pagination";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select/Select";
+import {
   Table,
   TableBody,
   TableCell,
@@ -169,6 +176,17 @@ export default function Home() {
           <Label htmlFor="" variant="large">
             Label Large
           </Label>
+
+          <Select>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <p className="font-light">300</p>
         <p className="font-normal">400</p>
