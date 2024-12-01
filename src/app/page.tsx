@@ -1,3 +1,8 @@
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar/Avatar";
 import { Button } from "@/components/ui/button/Button";
 import { Input } from "@/components/ui/input/Input";
 import { Label } from "@/components/ui/label/Label";
@@ -208,6 +213,13 @@ export default function Home() {
             <Input variant="small" id="picture" type="file" />
             <Input id="picture" type="file" />
             <Input variant="large" id="picture" type="file" />
+          </div>
+
+          <div className="py-5">
+            <Avatar>
+              <AvatarImage src="https://avatars.githubusercontent.com/u/62284108?s=400&u=02c127486669d1f8f967164e8e49ce6b85fcfad1&v=4" />
+              <AvatarFallback>Simodang</AvatarFallback>
+            </Avatar>
           </div>
         </div>
         <p className="font-light">300</p>
