@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button/Button";
+import { Input } from "@/components/ui/input/Input";
 import { Label } from "@/components/ui/label/Label";
 import {
   Pagination,
@@ -98,12 +99,20 @@ export default function Home() {
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 sm:p-20">
       <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
         <div>
-          <Button>Button Default</Button>
-          <Button variant="danger">Button Danger</Button>
-          <Button variant="secondary">Button Danger</Button>
-          <Button variant="outline-tertiary">Button Outline</Button>
-          <Button variant="outline-primary">Button Outline</Button>
-          <Button variant="ghost">Button Outline</Button>
+          <div className="flex flex-col gap-y-1">
+            <Button>Button Default</Button>
+            <Button size="small" variant="danger">
+              Button Danger
+            </Button>
+            <Button variant="danger">Button Danger</Button>
+            <Button size="large" variant="danger">
+              Button Danger
+            </Button>
+            <Button variant="secondary">Button Danger</Button>
+            <Button variant="outline-tertiary">Button Outline</Button>
+            <Button variant="outline-primary">Button Outline</Button>
+            <Button variant="ghost">Button Outline</Button>
+          </div>
 
           <Table>
             <TableHeader>
@@ -169,24 +178,37 @@ export default function Home() {
             </PaginationContent>
           </Pagination>
 
-          <Label htmlFor="" variant="small">
-            Label Small
-          </Label>
-          <Label htmlFor="">Label Normal</Label>
-          <Label htmlFor="" variant="large">
-            Label Large
-          </Label>
+          <div className="flex flex-col gap-y-5">
+            <Label htmlFor="" variant="small">
+              Label Small
+            </Label>
+            <Label htmlFor="">Label Normal</Label>
+            <Label htmlFor="" variant="large">
+              Label Large
+            </Label>
+          </div>
 
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="py-5">
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex flex-col gap-y-5">
+            <Input variant="small" type="email" placeholder="Email" />
+            <Input type="email" placeholder="Email" />
+            <Input variant="large" type="email" placeholder="Email" />
+            <Input variant="small" id="picture" type="file" />
+            <Input id="picture" type="file" />
+            <Input variant="large" id="picture" type="file" />
+          </div>
         </div>
         <p className="font-light">300</p>
         <p className="font-normal">400</p>
