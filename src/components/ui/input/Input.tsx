@@ -1,6 +1,7 @@
-import { cn } from "@/libs/utils/TailwindUtils";
-import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+
+import { cn } from "@/libs/utils/TailwindUtils";
 
 const inputVariants = cva(
   "border-input flex w-full rounded-md border text-base ring-schemes-light-primary file:border-0 file:bg-transparent file:font-medium file:text-schemes-light-primary placeholder:text-schemes-light-on-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-schemes-light-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
