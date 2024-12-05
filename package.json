@@ -15,7 +15,6 @@
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@tanstack/react-query": "^5.62.2",
-    "@tanstack/react-query-devtools": "^5.62.2",
     "@tanstack/react-table": "^8.20.5",
     "class-variance-authority": "^0.7.0",
     "iconsax-react": "^0.0.8",
@@ -28,6 +27,7 @@
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.62.1",
+    "@tanstack/react-query-devtools": "^5.62.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
